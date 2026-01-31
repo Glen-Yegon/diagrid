@@ -1,6 +1,6 @@
 /* CSS Index
 -----------------------------------
-1. Theme default css
+1 Theme default css
 2. header
 3. slider
 4. about
@@ -1293,6 +1293,13 @@ font-weight: 500;
 	margin-bottom: 0;
 color: #777;
 font-size: 16px;
+}
+/* Mobile */
+@media (max-width: 576px) {
+    .bg-breadcrumb {
+        min-height: 600px; /* makes image longer */
+        background-position: center top;
+    }
 }
 .breadcrumb > .active {
 	color:#F45B1E !important;
@@ -5508,8 +5515,9 @@ border-radius: 0;
     color: #141b22;
         box-shadow: none;
     font-size: 18px;
-       border: 1px solid #c6c6c6;
+    border: 1px solid #c6c6c6;
 }
+
 /* user */
 .user-area {
   position: relative;
@@ -5553,6 +5561,28 @@ color: #222;
 .user-boxs:hover p{
     border-top: 1px solid #F45B1E;
 }
+@media (max-width: 576px) {
+    .user-area {
+        padding: 40px 0;
+    }
+
+    .user-boxs {
+        padding: 20px 16px;
+        text-align: center;
+    }
+
+    .user-boxs p {
+        font-size: 14px;
+        padding-top: 14px;
+    }
+
+    .user-boxs .logo {
+        justify-content: center;
+        max-width: 100px;
+        margin-bottom: 16px;
+    }
+}
+
 /* 15. blog */
 
 .home-blog-active .slick-dots{
@@ -12696,7 +12726,41 @@ color: #ffff;
 
 @media (max-width: 480px) {
   .faq-img {
-    max-width: 220px;
+    max-width: 420px;
   }
 }
 
+/* Mobile image swap */
+@media (max-width: 576px) {
+    .faq-img img {
+        content: url("../images/aboutp.png");
+    }
+}
+
+
+.bg-gallery {
+    position: relative;
+}
+
+.bg-gallery::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.75) 50%,
+        rgba(0, 0, 0, 0.85) 100%
+    );
+}
+
+
+.bg-gallery .container {
+    position: relative;
+    z-index: 2;
+}
+
+.responsive-logo {
+    width: clamp(100px, 25vw, 180px);
+    height: auto;
+}
