@@ -125,15 +125,14 @@ html {
 
 .badge {
  position: absolute;
-  bottom: -100px;
-  right: 50px;
+  bottom: -67.5px;
+  right: -10px;
   z-index: 1;
   -webkit-animation: spin 6s linear infinite;
   -moz-animation: spin 6s linear infinite;
   animation: spin 6s linear infinite;
   width: 100%;
 }
-
 
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
@@ -12763,4 +12762,62 @@ color: #ffff;
 .responsive-logo {
     width: clamp(100px, 25vw, 180px);
     height: auto;
+}
+
+.copyright-text {
+    text-align: center;
+    margin-top: 0px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+    color: #999;
+}
+
+.copyright-text a {
+    color: #999;
+    transition: color 0.3s ease;
+}
+
+.copyright-text a:hover {
+    color: #fff;
+}
+
+
+@media (max-width: 767px) {
+    .copyright-text {
+        font-size: 13px;
+        margin-top: 15px;
+    }
+}
+
+.dark-bg {
+    position: relative;
+}
+
+.dark-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15); /* adjust darkness here */
+    z-index: 1;
+}
+
+/* keep content above overlay */
+.dark-bg > * {
+    position: relative;
+    z-index: 2;
+}
+
+
+.gallery-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4; /* portrait ratio */
+    overflow: hidden;
+}
+
+.gallery-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
