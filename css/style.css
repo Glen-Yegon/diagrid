@@ -12736,15 +12736,18 @@ color: #ffff;
     }
 }
 
-
+/* Background overlay safety */
 .bg-gallery {
     position: relative;
+    overflow: hidden;
 }
 
 .bg-gallery::before {
     content: "";
     position: absolute;
     inset: 0;
+    z-index: 1;
+    pointer-events: none;
     background: linear-gradient(
         180deg,
         rgba(0, 0, 0, 0.85) 0%,
@@ -12753,10 +12756,40 @@ color: #ffff;
     );
 }
 
-
 .bg-gallery .container {
     position: relative;
     z-index: 2;
+}
+
+/* Gallery cards */
+.gallery-image{
+    position: relative;
+    display: block;     /* important */
+    width: 100%;        /* important */
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    margin: 0;          /* removes default figure margins */
+}
+
+
+.gallery-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Column spacing */
+.gallery-col {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+/* Mobile centering fix */
+@media (max-width: 576px) {
+    .gallery-row {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 .responsive-logo {
@@ -12809,15 +12842,305 @@ color: #ffff;
 }
 
 
-.gallery-image {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 3 / 4; /* portrait ratio */
-    overflow: hidden;
+/* Service-Details*/
+
+/* ===========
+   Diagrid Service Details
+   =========== */
+
+.diagrid-service-details {
+    margin-top: 50px;
+  font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #111;
 }
 
-.gallery-image img {
+/* top layout */
+.ds-top {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+/* media card */
+/* media card */
+.ds-media {
+  position: relative;
+  overflow: hidden;
+  background: #0b0b0b;
+
+  min-height: 240px;                 /* reduced from 280px */
+  max-height: 540px;                 /* prevents overpowering */
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* image */
+.ds-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  transform: scale(1.015);           /* more subtle zoom */
+  transition: transform 300ms ease;  /* tighter interaction */
+}
+
+
+.ds-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.75) 100%);
+  pointer-events: none;
+}
+
+.ds-media-caption {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ds-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 6px 10px;
+  border: 1px solid white;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.2px;
+}
+
+.ds-media-caption h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* right menu */
+.ds-menu {
+  border-radius: 0px;
+  background: #fff;
+  padding: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ds-btn {
+  width: 100%;
+  text-align: left;
+  border: 1px solid rgba(17,17,17,0.12);
+  background: #fff;
+  color: #111;
+  padding: 12px 12px;
+  border-radius: 0px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.ds-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(216, 86, 37, 0.55);
+}
+
+.ds-btn.is-active {
+  background: rgba(216, 86, 37, 0.10);
+  border-color: rgba(216, 86, 37, 0.75);
+  box-shadow: 0 8px 18px rgba(216, 86, 37, 0.15);
+  position: relative;
+}
+
+.ds-btn.is-active::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  bottom: 12px;
+  width: 4px;
+  border-radius: 999px;
+  background: #d85625;
+}
+
+.ds-note {
+  margin-top: auto;
+  padding: 12px;
+  border-radius: 0px;
+  background: rgba(17,17,17,0.04);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.ds-note-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  margin-top: 6px;
+  background: #d85625;
+}
+
+.ds-note p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  color: rgba(17,17,17,0.72);
+}
+/* ===== Service description emphasis ===== */
+
+/* Give the whole body more presence */
+.ds-body {
+  padding: 28px;                 /* bigger container */
+  gap: 22px;    
+  margin-left: 0px;                 /* more separation */
+}
+
+/* Make each block feel like a section */
+.ds-block {
+  padding: 16px 18px;
+  background: rgba(17, 17, 17, 0.015);
+  border-left: 4px solid #d85625; /* brand anchor */
+}
+
+/* Stronger, clearer headings */
+.ds-block h3 {
+  font-size: 1.2rem;             /* bigger */
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+
+/* Improve paragraph readability */
+.ds-block p {
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+/* Divider becomes a section separator, not a line */
+.ds-divider {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(216, 86, 37, 0.6),
+    rgba(216, 86, 37, 0.15),
+    transparent
+  );
+}
+
+/* Bullet points feel more intentional */
+.ds-points {
+  margin-top: 16px;
+  padding-left: 20px;
+}
+
+.ds-points li {
+  margin: 10px 0;
+  line-height: 1.55;
+}
+
+/* smooth swap animation */
+.ds-fade {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+.ds-fade.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* responsive */
+@media (max-width: 992px) {
+  .ds-top {
+    grid-template-columns: 1fr;
+  }
+  .ds-menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .ds-btn {
+    width: calc(50% - 5px);
+  }
+  .ds-note {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+  }
+}
+
+@media (max-width: 576px) {
+  .ds-media {
+    min-height: 240px;
+  }
+  .ds-btn {
+    width: 100%;
+  }
+}
+
+
+
+/* Give the top section more breathing room */
+.ds-top {
+  margin-bottom: 32px;
+}
+
+/* Improve spacing inside the image caption */
+.ds-media-caption {
+  padding: 6px 0;
+  gap: 10px;
+}
+
+/* Space out menu items more cleanly */
+.ds-menu {
+  padding: 20px;
+  gap: 14px;
+}
+
+/* Buttons feel less cramped */
+.ds-btn {
+  padding: 14px 16px;
+}
+
+/* More separation between top and body */
+.ds-body {
+  margin-top: 28px;
+  padding: 24px;
+  gap: 18px;
+}
+
+/* Improve paragraph rhythm */
+.ds-block p {
+  margin-top: 6px;
+}
+
+/* List spacing refinement */
+.ds-points {
+  margin-top: 14px;
+}
+
+.ds-points li {
+  margin: 8px 0;
+}
+
+/* Mobile breathing room */
+@media (max-width: 576px) {
+  .ds-top {
+    gap: 22px;
+  }
+
+  .ds-menu {
+    padding: 18px;
+  }
+
+  .ds-body {
+    padding: 18px;
+  }
 }
