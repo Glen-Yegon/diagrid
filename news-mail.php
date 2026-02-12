@@ -1,10 +1,15 @@
 <?php
 $email = $_POST['email'];
 
-$formcontent="Email: $email";
-$recipient = "mdsubhan.53@gmail.com";
-$subject = "Newslater Form";
-$mailheader = "From: $email \r\n";
-mail($recipient, $subject, $formcontent, $mailheader) or die("Error!");
+$formcontent = "Newsletter Subscription Email: $email";
+
+$recipient = "info@diagridgroup.co.ke";
+$subject = "New Newsletter Subscription - Diagrid";
+
+$headers = "From: info@diagridgroup.co.ke\r\n";
+$headers .= "Reply-To: $email\r\n";
+
+mail($recipient, $subject, $formcontent, $headers) or die("Error!");
+
 require_once "thank-you.html";
 ?>

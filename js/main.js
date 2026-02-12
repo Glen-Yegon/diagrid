@@ -709,29 +709,43 @@ VanillaTilt.init(document.querySelectorAll(".brand-area li"),{
 
 
 // New Scripts (Glen)
-const words = [
-  "Commercial",
-  "Residential",
-  "Construction",
-  "Office",
-  "Design Plan",
-  "Interior Design"
-];
+document.addEventListener("DOMContentLoaded", () => {
+  const slider = [
+    { word: "Home Solutions", bg: "../images/hero2.webp" },
+    { word: "Remodel Project", bg: "../images/hero1.webp" },
+    { word: "Office Solutions", bg: "../images/hero3.webp" },
+    { word: "Commercial", bg: "../images/hero1.webp" },
+    { word: "Interior Works", bg: "../images/hero3.webp" },
+  ];
 
-const rotatingWord = document.getElementById("rotating-word");
-let index = 0;
+  const rotatingWord = document.getElementById("rotating-word");
+  const heroBg = document.getElementById("hero-bg");
 
-setInterval(() => {
-  rotatingWord.classList.add("fade-out");
+  let index = 0;
 
-  setTimeout(() => {
-    index = (index + 1) % words.length;
-    rotatingWord.textContent = words[index];
-    rotatingWord.classList.remove("fade-out");
-    rotatingWord.classList.add("fade-in");
-  }, 400);
+  rotatingWord.textContent = slider[index].word;
+  heroBg.style.backgroundImage = `url("${slider[index].bg}")`;
 
-}, 3000);
+  setInterval(() => {
+    rotatingWord.classList.add("fade-out");
+    heroBg.style.opacity = "0";
+
+    setTimeout(() => {
+      index = (index + 1) % slider.length;
+
+      rotatingWord.textContent = slider[index].word;
+      heroBg.style.backgroundImage = `url("${slider[index].bg}")`;
+
+      rotatingWord.classList.remove("fade-out");
+      rotatingWord.classList.add("fade-in");
+      heroBg.style.opacity = "1";
+
+      setTimeout(() => rotatingWord.classList.remove("fade-in"), 500);
+    }, 400);
+  }, 3000);
+});
+
+
 
 
 

@@ -12346,19 +12346,39 @@ color: #ffff;
 .hero-section {
   position: relative;
   min-height: 100vh;
-  background: url("../images/hss.png") center/cover no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+
+
   display: flex;
   align-items: center;
   padding: 0 6%;
+
+
 }
 
-/* DARK OVERLAY */
+/* Better fade effect using an overlay layer */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 1;
+  transition: opacity 0.7s ease;
+  z-index: 0;
+}
+
+/* keep your overlay above background */
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.65);
   z-index: 1;
+  background: rgba(0,0,0,0.2); /* must be transparent */
 }
+
 
 /* CONTENT */
 .hero-content {
@@ -12394,6 +12414,7 @@ color: #ffff;
 
 #rotating-word {
   color: #d85625;
+  font-weight: 450;
   transition: opacity 0.4s ease, transform 0.4s ease;
   display: inline-block;
 }
@@ -12450,11 +12471,9 @@ color: #ffff;
     font-size: 3rem;
   }
 
-/* HERO SECTION */
 .hero-section {
   position: relative;
   min-height: 100vh;
-  background: url("../images/mobilehero.png") center/cover no-repeat;
   padding: 0 5%;
 }
 }
@@ -13143,4 +13162,13 @@ color: #ffff;
   .ds-body {
     padding: 18px;
   }
+}
+
+.hero-p{
+    font-size: 20px;
+    color: black;
+    margin-left: 10px;
+}
+.glow{
+    color: #d85625;
 }

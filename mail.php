@@ -1,14 +1,47 @@
 <?php
-$firstn = $_POST['firstn'];
-$lastn = $_POST['lastn'];
-$email = $_POST['email'];
-$phone = $_POST['phone'];
-$services = $_POST['services'];
-$message = $_POST['message'];
-$formcontent="First Name: $firstn \n Last Name: $lastn \n Email: $email \n Services: $services \n Phone: $phone \n Message: $message";
-$recipient = "mdsubhan.53@gmail.com";
-$subject = "Contact Form";
-$mailheader = "From: $email \r\n";
-mail($recipient, $subject, $formcontent, $mailheader) or die("Error!");
-require_once "thank-you.html";
+
+// Get form values safely
+$firstn  = $_POST['firstn'] ?? '';
+$email   = $_POST['email'] ?? '';
+$phone   = $_POST['phone'] ?? '';
+$subject = $_POST['subject'] ?? '';
+$message = $_POST['message'] ?? '';
+
+// Email validation (basic protection)
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    die("Invalid email format.");
+}
+
+// Build email content
+$formcontent = "
+New Contact Form Submission - Diagrid Website
+
+First Name: $firstn
+Email: $email
+Phone: $phone
+Subject: $subject
+
+Message:
+$message
+";
+
+// Recipient
+$recipient = "info@diagridgroup.co.ke";
+
+// Email subject
+$email_subject = "New Website Contact - $subject";
+
+// IMPORTANT: Use your domain email as sender
+$headers = "From: info@diagridgroup.co.ke\r\n";
+$headers .= "Reply-To: $email\r\n";
+$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+// Send email
+if (mail($recipient, $email_subject, $formcontent, $headers)) {
+    header("Location: thank-you.html");
+    exit();
+} else {
+    echo "Error sending message.";
+}
+
 ?>
