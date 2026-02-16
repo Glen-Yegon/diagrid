@@ -13420,13 +13420,12 @@ color: #ffff;
   }
 
   .pd-collage__img--base{
-    border-radius: 16px;
     height: clamp(320px, 48vh, 520px);
   }
 
   .pd-collage__img--overlay{
-    right: 14px;
-    bottom: 14px;
+    right: -10px;
+    bottom: -24px;
     width: clamp(170px, 55vw, 260px);
     height: clamp(190px, 60vw, 300px);
   }
