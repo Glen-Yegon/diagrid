@@ -792,3 +792,4 @@ prev.addEventListener("click", () => {
 /* Init */
 updateSlider();
 startAuto();
+

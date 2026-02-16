@@ -13172,3 +13172,582 @@ color: #ffff;
 .glow{
     color: #d85625;
 }
+
+/* =========================
+   Project Detail - Main
+   ========================= */
+
+.pd-main {
+  background: #fff;
+}
+
+/* Hero top block */
+.pd-hero {
+  padding: clamp(40px, 5vw, 80px) 16px clamp(26px, 3vw, 44px);
+}
+
+.pd-hero__inner {
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Location */
+.pd-location {
+  margin: 0;
+  font-size: clamp(0.92rem, 1.2vw, 1rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.62);
+}
+
+/* Title */
+.pd-title {
+  margin: 14px 0 0;
+  font-size: clamp(2rem, 3.2vw, 3.2rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  font-weight: 650;
+  color: #0b0b0b;
+}
+
+/* Meta rows */
+.pd-meta {
+  margin: clamp(18px, 2.2vw, 28px) auto 0;
+  display: grid;
+  gap: 10px;
+  max-width: 560px;
+}
+
+.pd-meta__row {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.pd-meta__label {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.pd-meta__value {
+  font-size: 1.02rem;
+  font-weight: 560;
+  color: #d85625;
+}
+
+/* On larger screens, make it feel more premium */
+@media (min-width: 768px) {
+  .pd-meta {
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 860px;
+  }
+
+  .pd-meta__row {
+    padding: 14px 16px;
+  }
+}
+
+/* =========================
+   Edge-to-edge image
+   ========================= */
+.pd-media {
+  width: 100%;
+  margin: 0;
+}
+
+.pd-media__figure {
+  margin: 0;
+  width: 100%;
+}
+
+/* Large, edge-to-edge, professional */
+.pd-media__img {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 62vh, 720px);
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0;
+}
+
+/* A touch more polish on big screens */
+@media (min-width: 1024px) {
+  .pd-media__img {
+    height: 72vh;
+  }
+}
+
+/* If an image fails, avoid layout jump */
+.pd-media__img[src=""] {
+  min-height: 320px;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* =========================
+   Collage + Description (FULL UPDATED)
+   - Collage flush to left edge (no margin/gutter)
+   - Base image ~50vw wide
+   - Overlay image bigger, bottom-right
+   - Fully responsive + modern
+   ========================= */
+
+.pd-story{
+  padding: clamp(36px, 5vw, 84px) 0;   /* no side padding => left edge flush */
+  background: #fff;
+}
+
+/* Full-width grid: left column = 50vw, right column fills remaining space */
+.pd-story__inner{
+  width: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 50vw minmax(0, 1fr);
+  gap: clamp(18px, 3vw, 52px);
+  align-items: center;
+}
+
+/* Left collage */
+.pd-collage{
+  width: 100%;
+}
+
+.pd-collage__frame{
+  position: relative;
+  width: 100%;
+  overflow: visible; /* allow overlay to “pop” out */
+}
+
+/* Base image (wide + cinematic) */
+.pd-collage__img--base{
+  display: block;
+  width: 100%;
+  height: clamp(420px, 60vh, 720px);
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: 0; /* flush edge look */
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Overlay image (bigger, bottom-right) */
+.pd-collage__img--overlay{
+  position: absolute;
+
+  /* Move slightly more to the right */
+  right: clamp(-35px, -2.5vw, -20px);
+
+  /* Keep strong bottom overlap */
+  bottom: clamp(-40px, -3vw, -20px);
+
+  /* Larger + wider */
+  width: clamp(260px, 26vw, 420px);
+  height: clamp(300px, 32vw, 500px);
+
+  object-fit: cover;
+  object-position: center;
+
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.10);
+
+  box-shadow:
+    0 26px 65px rgba(0,0,0,0.18),
+    0 12px 30px rgba(0,0,0,0.12);
+}
+
+
+/* Right copy */
+.pd-copy{
+  padding: 0 16px; /* comfortable reading padding */
+}
+
+@media (min-width: 1200px){
+  .pd-copy{
+    padding-right: 24px;
+    max-width: 560px; /* keep copy elegant */
+  }
+}
+
+.pd-copy__kicker{
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.60);
+}
+
+.pd-copy__title{
+  margin: 0 0 14px;
+  font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-weight: 650;
+  color: #0b0b0b;
+}
+
+.pd-copy__desc{
+  margin: 0;
+  font-size: clamp(1rem, 1.05vw, 1.08rem);
+  line-height: 1.8;
+  color: rgba(0,0,0,0.76);
+  max-width: 62ch;
+}
+
+/* =========================
+   Mobile responsiveness
+   ========================= */
+@media (max-width: 992px){
+  .pd-story{
+    padding: 28px 0;
+  }
+
+  .pd-story__inner{
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  /* on mobile, give the collage a tiny side padding so it doesn’t feel cramped */
+  .pd-collage{
+    padding: 0 12px;
+  }
+
+  .pd-collage__img--base{
+    border-radius: 16px;
+    height: clamp(320px, 48vh, 520px);
+  }
+
+  .pd-collage__img--overlay{
+    right: 14px;
+    bottom: 14px;
+    width: clamp(170px, 55vw, 260px);
+    height: clamp(190px, 60vw, 300px);
+  }
+
+  .pd-copy{
+    padding: 0 16px;
+  }
+
+  .pd-copy__desc{
+    max-width: 100%;
+  }
+}
+
+/* If any image src is empty, avoid broken layout */
+.pd-collage__img[src=""]{
+  background: rgba(0,0,0,0.04);
+}
+
+
+
+/* =========================
+   Slideshow / Carousel (UPDATED)
+   - thinner images
+   - no border radius
+   - controls outside image
+   ========================= */
+
+.pd-slider{
+  padding: clamp(36px, 5vw, 84px) 16px;
+  background: #fff;
+}
+
+.pd-slider__inner{
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.pd-slider__head{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: clamp(14px, 2vw, 22px);
+}
+
+.pd-slider__kicker{
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.60);
+}
+
+.pd-slider__title{
+  margin: 0;
+  font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-weight: 650;
+  color: #0b0b0b;
+}
+
+/* Shell */
+.pd-carousel{
+  position: relative;
+  background: transparent;
+  border: 0;           /* no border */
+  border-radius: 0;    /* no rounding */
+  overflow: visible;   /* allow outside controls */
+}
+
+/* Viewport holds the image area */
+.pd-carousel__viewport{
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0; /* ensure sharp edges */
+}
+
+/* Track for sliding */
+.pd-carousel__track{
+  display: flex;
+  width: 100%;
+  transform: translateX(0%);
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* Slide */
+.pd-carousel__slide{
+  flex: 0 0 100%;
+  position: relative;
+}
+
+/* Image: thinner + sharp edges */
+.pd-carousel__img{
+  display: block;
+  width: 100%;
+  height: clamp(240px, 42vh, 420px); /* thinner */
+  object-fit: cover;
+  object-position: center;
+  background: rgba(0,0,0,0.04);
+  border-radius: 0; /* no rounding */
+}
+
+/* =========================
+   Controls OUTSIDE the image
+   ========================= */
+
+/* Place buttons in a control row below the image */
+.pd-carousel__controls{
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Buttons: now normal buttons, not overlay */
+.pd-carousel__btn{
+  position: static;   /* no absolute positioning */
+  transform: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(0,0,0,0.04);
+  color: rgba(0,0,0,0.78);
+
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+
+  box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.pd-carousel__btn span{
+  font-size: 28px;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.pd-carousel__btn:hover{
+  background: rgba(0,0,0,0.07);
+  transform: scale(1.03);
+}
+
+.pd-carousel__btn:active{
+  transform: scale(0.98);
+}
+
+/* Dots: now also outside image */
+.pd-carousel__dots{
+  position: static;
+  transform: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.10);
+}
+
+.pd-dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(0,0,0,0.25);
+  transition: transform 160ms ease, background 160ms ease, width 160ms ease;
+}
+
+.pd-dot.is-active{
+  background: rgba(0,0,0,0.75);
+  width: 18px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .pd-carousel__track{
+    transition: none;
+  }
+}
+
+
+/* =========================
+   Prev / Next Projects (100vw, no spacing)
+   ========================= */
+.pd-nav{
+  width: 100%;
+  margin: 0;
+  margin-bottom: 30px;
+  padding: 0;
+}
+
+.pd-nav__wrap{
+  display: flex;
+  width: 100vw;     /* full viewport width */
+  margin: 0;
+  padding: 0;
+  gap: 0;           /* no spacing */
+}
+
+.pd-nav__item{
+  position: relative;
+  flex: 1 1 50%;
+  min-height: clamp(220px, 30vh, 360px); /* ~30vh feel */
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  background: #0b0b0b;
+}
+
+/* if only one exists -> full width */
+.pd-nav__item.is-full{
+  flex-basis: 100%;
+}
+
+/* Background image layer (so we can zoom smoothly) */
+.pd-nav__bg{
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1);
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* Dim overlay */
+.pd-nav__overlay{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.42);
+  transition: background 280ms ease;
+}
+
+/* Centered content */
+.pd-nav__content{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  text-align: center;
+  z-index: 2;
+}
+
+.pd-nav__kicker{
+  margin: 0 0 10px;
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: white;
+}
+
+.pd-nav__title{
+  margin: 0;
+  font-size: clamp(1.15rem, 1.9vw, 1.7rem);
+  line-height: 1.12;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: white;
+  max-width: 26ch;
+}
+
+/* Arrow (hidden by default) */
+.pd-nav__arrow{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.92);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+/* Direction specific arrows */
+.pd-nav__item[data-dir="prev"] .pd-nav__arrow::before{
+  content: "←";
+  font-size: 1.2rem;
+  transform: translateY(-1px);
+}
+.pd-nav__item[data-dir="next"] .pd-nav__arrow::before{
+  content: "→";
+  font-size: 1.2rem;
+  transform: translateY(-1px);
+}
+
+/* Hover effects: zoom + darker + arrow appear */
+.pd-nav__item:hover .pd-nav__bg{
+  transform: scale(1.08);
+}
+.pd-nav__item:hover .pd-nav__overlay{
+  background: rgba(0,0,0,0.58);
+}
+.pd-nav__item:hover .pd-nav__arrow{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Nice focus state (keyboard) */
+.pd-nav__item:focus-visible{
+  outline: 3px solid rgba(0,0,0,0.6);
+  outline-offset: -3px;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 768px){
+  .pd-nav__wrap{
+    flex-direction: column;
+  }
+  .pd-nav__item{
+    flex-basis: auto;
+    width: 100%;
+  }
+}
