@@ -711,11 +711,11 @@ VanillaTilt.init(document.querySelectorAll(".brand-area li"),{
 // New Scripts (Glen)
 document.addEventListener("DOMContentLoaded", () => {
   const slider = [
-    { word: "Home Solutions", bg: "../images/hero2.webp" },
-    { word: "Remodel Project", bg: "../images/hero1.webp" },
-    { word: "Office Solutions", bg: "../images/hero3.webp" },
-    { word: "Commercial", bg: "../images/hero1.webp" },
-    { word: "Interior Works", bg: "../images/hero3.webp" },
+    { word: "Home Solutions", bg: "../images/hero1.webp" },
+    { word: "Remodel Project", bg: "../images/hero4.png" },
+    { word: "Office Solutions", bg: "../images/hero7.png" },
+    { word: "Commercial", bg: "../images/hero6.png" },
+    { word: "Interior Works", bg: "../images/hero3.png" },
   ];
 
   const rotatingWord = document.getElementById("rotating-word");

@@ -1784,6 +1784,12 @@ content: "";
     background: #fff;
     transition: .3s cubic-bezier(.24,.74,.58,1);
 }
+
+@media(max-width: 600px){
+    .about-button.collapsed{
+        font-size: 3rem;
+    }
+}
 .scroll-btn {
   transform: rotate(-90deg);
   position: absolute;
@@ -4459,9 +4465,20 @@ font-size: 48px;
 .project-box:hover .img-hover {
   opacity: 1;
 }
-.project h2{
+/* MOBILE - make hover image smaller */
+@media (max-width: 768px) {
+
+  .project-box .img-hover {
+    width: 140px;      /* smaller size */
+    top: -40px;        /* adjust position */
+    right: -60px;      /* adjust position */
+  }
+  .proj-title{
+    font-size: 2rem !important;
+  }
 
 }
+
 .single-project .project-info {
 position: absolute;
 bottom: 40px;
@@ -12350,9 +12367,7 @@ color: #ffff;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-
-
-
+  font-family: "Space Grotesk", system-ui;
   display: flex;
   align-items: center;
   padding: 0 6%;
@@ -12488,6 +12503,63 @@ color: #ffff;
     font-size: 0.8rem;
   }
 }
+/* Hide mobile images on desktop */
+.hero-mobile-images {
+  display: none;
+}
+
+/* MOBILE HERO MODIFICATIONS */
+@media (max-width: 768px) {
+
+  /* Remove background image */
+  .hero-bg {
+    display: none;
+  }
+
+  /* Remove overlay */
+  .hero-overlay {
+    display: none;
+  }
+
+  /* Make section white and auto height */
+  .hero-section {
+    background: #fff;
+    min-height: auto;
+    padding-top: 120px;
+    padding-bottom: 0; /* important */
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Remove vertical shift */
+  .hero-content {
+    transform: none;
+    text-align: left;
+    padding: 0 5%; /* keeps text readable */
+  }
+
+  /* Center buttons */
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  /* Show mobile images */
+  .hero-mobile-images {
+    display: flex;
+    flex-direction: column;   /* stack vertically */
+    margin-top: 40px;
+    width: 100%;
+  }
+
+  .hero-mobile-images img {
+    width: 100%;        /* edge to edge */
+    height: auto;
+    display: block;
+    border-radius: 0;   /* no rounding */
+    margin: 0;          /* remove spacing */
+  }
+}
+
 
 /* ========================= */
 /* BRAND TESTIMONIALS */
