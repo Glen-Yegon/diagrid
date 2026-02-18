@@ -12,12 +12,12 @@
       },
       "description": "Gracelle Drive is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
       "images": [
-        "projects/img169.jpg",
-        "projects/img172.jpg",
-        "projects/img177.jpg",
-        "projects/img172.jpg",
-        "projects/img173.jpg",
-        "projects/img174.jpg"
+        "../images/IMG1.png",
+        "../images/IMG2.jpg",
+        "../images/IMG3.jpg",
+        "../images/IMG4.jpg",
+        "../images/IMG5.jpg",
+        "../images/IMG6.jpg"
       ]
     },
     {
@@ -26,18 +26,18 @@
       "location": "Chepkanga, Kenya",
       "year": 2023,
       "roles": {
-        "architect": "",
-        "interior_designer": "",
-        "operator": ""
+        "architect": "Diagrid Studio",
+        "interior_designer": "Rimpa Interiors",
+        "operator": "Diagrid Group"
       },
-      "description": "",
+      "description": "Gables is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
       "images": [
-        "projects/img177.jpg",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "../images/IMGA.jpg",
+        "../images/IMGB.jpg",
+        "../images/IMGC.jpg",
+        "../images/IMGD.jpg",
+        "../images/IMGE.jpg",
+        "../images/IMGF.jpg"
       ]
     },
     {
@@ -46,18 +46,18 @@
       "location": "Hillside, Kenya",
       "year": 2024,
       "roles": {
-        "architect": "",
-        "interior_designer": "",
-        "operator": ""
+        "architect": "Diagrid Studio",
+        "interior_designer": "Rimpa Interiors",
+        "operator": "Diagrid Group"
       },
-      "description": "",
+      "description": "Casa Colina is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
       "images": [
-        "projects/img203.jpg",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "../images/IMG11.jpg",
+        "../images/IMG12.jpg",
+        "../images/IMG13.jpg",
+        "../images/IMG14.jpg",
+        "../images/IMG15.jpg",
+        "../images/IMG16.jpg"
       ]
     },
     {
@@ -66,18 +66,17 @@
       "location": "Elgeyo Marakwet, Kenya",
       "year": 2021,
       "roles": {
-        "architect": "",
-        "interior_designer": "",
-        "operator": ""
+        "architect": "Diagrid Studio",
+        "interior_designer": "Rimpa Interiors",
+        "operator": "Diagrid Group"
       },
-      "description": "",
+      "description": "Split House is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
       "images": [
-        "projects/img229.jpg",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "../images/img220.jpg",
+        "../images/img229.jpg",
+        "../images/img223.jpg",
+        "../images/img232.jpg",
+        "../images/img226.jpg"
       ]
     },
     {
@@ -86,18 +85,18 @@
       "location": "Upperhill, Nairobi",
       "year": 2024,
       "roles": {
-        "architect": "",
-        "interior_designer": "",
-        "operator": ""
+        "architect": "Diagrid Studio",
+        "interior_designer": "Rimpa Interiors",
+        "operator": "Diagrid Group"
       },
-      "description": "",
+      "description": "Zepre HQ is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
       "images": [
-        "projects/img257.jpg",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "../images/IMG20.webp",
+        "../images/IMG21.webp",
+        "../images/IMG22.webp",
+        "../images/IMG23.webp",
+        "../images/split1.webp",
+        "../images/split2.webp"
       ]
     },
     {
@@ -106,18 +105,17 @@
       "location": "Kajiado County, Kenya",
       "year": 2023,
       "roles": {
-        "architect": "",
-        "interior_designer": "",
-        "operator": ""
+        "architect": "Diagrid Studio",
+        "interior_designer": "Rimpa Interiors",
+        "operator": "Diagrid Group"
       },
-      "description": "",
+      "description": "Rimpa Interior Design Works is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
       "images": [
-        "projects/img286.jpg",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "../images/img280.jpg",
+        "../images/img283.jpg",
+        "../images/img286.jpg",
+        "../images/img300.jpg",
+        "../images/img227.jpg"
       ]
     }
   ]
