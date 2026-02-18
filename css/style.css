@@ -12472,6 +12472,7 @@ color: #ffff;
 
 .secondary {
   color: #d85625;
+  
   background-color: transparent;
   border: none;
 }
@@ -12540,7 +12541,7 @@ color: #ffff;
 
   /* Center buttons */
   .hero-buttons {
-    justify-content: center;
+    justify-content: left;
   }
 
   /* Show mobile images */
