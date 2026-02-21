@@ -12504,6 +12504,7 @@ color: #ffff;
     font-size: 0.8rem;
   }
 }
+
 /* Hide mobile images on desktop */
 .hero-mobile-images {
   display: none;
@@ -12561,6 +12562,23 @@ color: #ffff;
   }
 }
 
+/* =========================
+   TABLETS & iPads (images only)
+   ========================= */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  .hero-mobile-images {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* center images */
+    margin-top: 40px;
+  }
+
+  .hero-mobile-images img {
+    width: calc(100% - 540px); /* 120px left + 120px right */
+    height: auto;
+  }
+}
 
 /* ========================= */
 /* BRAND TESTIMONIALS */
