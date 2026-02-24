@@ -4110,10 +4110,13 @@ padding: 0px;
 }
 .team-area .container{
     z-index: 1;
+    align-items: center;
+    justify-content: center;
     position: relative;
 }
 .team-active .slick-dots{
     text-align: center;
+
     display: none;
     padding-top: 30px;
 }
@@ -12791,6 +12794,8 @@ color: #ffff;
   z-index: 2; /* above overlay */
   color: #fff; /* text visible */
   text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -13397,14 +13402,18 @@ color: #ffff;
   background: #fff;
 }
 
-/* Full-width grid: left column = 50vw, right column fills remaining space */
+/* Full-width grid with reserved space so overlay never touches the text */
 .pd-story__inner{
   width: 100%;
   margin: 0;
   display: grid;
   grid-template-columns: 50vw minmax(0, 1fr);
-  gap: clamp(18px, 3vw, 52px);
+  gap: clamp(24px, 4vw, 72px); /* more gap */
+
   align-items: center;
+
+  /* IMPORTANT: reserve room on the right side of the collage column */
+  padding-right: clamp(120px, 10vw, 240px);
 }
 
 /* Left collage */
@@ -13425,21 +13434,17 @@ color: #ffff;
   height: clamp(420px, 60vh, 720px);
   object-fit: cover;
   object-position: center;
-
   border-radius: 0; /* flush edge look */
-  background: rgba(0,0,0,0.04);
-  border: 1px solid rgba(0,0,0,0.08);
 }
 
 /* Overlay image (bigger, bottom-right) */
 .pd-collage__img--overlay{
   position: absolute;
 
-  /* Move slightly more to the right */
-  right: clamp(-35px, -2.5vw, -20px);
+right: clamp(-220px, -8vw, -140px);
 
   /* Keep strong bottom overlap */
-  bottom: clamp(-40px, -3vw, -20px);
+  bottom: clamp(100px, -3vw, -20px);
 
   /* Larger + wider */
   width: clamp(260px, 26vw, 420px);
@@ -13447,19 +13452,13 @@ color: #ffff;
 
   object-fit: cover;
   object-position: center;
-
-  background: rgba(0,0,0,0.04);
-  border: 1px solid rgba(0,0,0,0.10);
-
-  box-shadow:
-    0 26px 65px rgba(0,0,0,0.18),
-    0 12px 30px rgba(0,0,0,0.12);
 }
 
-
-/* Right copy */
 .pd-copy{
-  padding: 0 16px; /* comfortable reading padding */
+  padding-left: clamp(60px, 6vw, 140px);  /* pushes text inward */
+  padding-right: 16px;
+  max-width: 620px; /* keeps text elegant */
+  margin-left: auto; /* anchors it to the right side */
 }
 
 @media (min-width: 1200px){
@@ -14117,4 +14116,365 @@ color: #ffff;
     font-size: 0.92rem;
     padding: 10px 12px;
   }
+}
+
+
+/*Portfolio remake*/
+/* Brand base */
+.portfolio-section{
+  --brand:#d85625;
+  --black:#0b0b0b;
+  --white:#ffffff;
+  --muted: rgba(11,11,11,.68);
+
+  font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--black);
+  background: var(--white);
+}
+
+/* 2-column split */
+.portfolio-split{
+  display:grid;
+  grid-template-columns: minmax(260px, 360px) 1fr;
+  gap: clamp(20px, 3vw, 56px);
+  align-items: start;
+  margin-top: 28px;
+}
+
+/* LEFT (plain text, sticky) */
+.portfolio-left{
+  position: sticky;
+  top: 110px; /* adjust if your header is taller */
+  align-self: start;
+}
+
+.portfolio-heading{
+  margin: 0 0 10px;
+  font-size: clamp(1.9rem, 2.6vw, 2.6rem);
+  letter-spacing: -0.03em;
+}
+
+.portfolio-sub{
+  margin: 0;
+  line-height: 1.75;
+  color: var(--muted);
+  max-width: 34ch;
+  font-size: 1rem;
+}
+
+/* RIGHT: internal scroll area on desktop */
+.portfolio-right{
+  height: calc(100vh - 170px); /* visible scroll region */
+  overflow: auto;
+  padding-right: 6px;
+  scroll-behavior: smooth;
+}
+
+/* nice scrollbar (optional) */
+.portfolio-right::-webkit-scrollbar{ width: 8px; }
+.portfolio-right::-webkit-scrollbar-thumb{ background: rgba(11,11,11,.18); border-radius: 10px; }
+.portfolio-right::-webkit-scrollbar-track{ background: transparent; }
+
+/* Items (1 per row) */
+.portfolio-item{
+  padding-bottom: clamp(26px, 4vw, 42px);
+  margin-bottom: clamp(26px, 4vw, 42px);
+  border-bottom: 1px solid rgba(11,11,11,.12);
+}
+
+/* Link wraps all */
+.portfolio-link{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Big landscape image, no border radius */
+.portfolio-media{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: rgba(11,11,11,.06);
+  overflow: hidden; /* keep clean edges */
+}
+
+.portfolio-media img{
+  width: 100%;
+  height: 100%;
+  display:block;
+  object-fit: cover;
+  transform: scale(1.01);
+  transition: transform .35s ease;
+}
+
+/* Big title and paragraph */
+.portfolio-name{
+  margin: 14px 0 8px;
+  font-size: clamp(1.25rem, 1.6vw, 1.6rem);
+  letter-spacing: -0.02em;
+}
+
+.portfolio-text{
+  margin: 0;
+  line-height: 1.75;
+  color: var(--muted);
+  font-size: 1rem;
+  max-width: 70ch;
+}
+
+/* Hover feel (clean, professional) */
+.portfolio-link:hover .portfolio-media img{
+  transform: scale(1.06);
+}
+
+.portfolio-link:hover .portfolio-name{
+  color: var(--brand);
+}
+
+/* Filter hide */
+.portfolio-item.is-hidden{
+  display:none !important;
+}
+
+/* RESPONSIVE: mobile stacks, no internal scroll */
+@media (max-width: 991px){
+  .portfolio-split{
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .portfolio-left{
+    position: relative;
+    top: auto;
+  }
+
+  .portfolio-sub{
+    max-width: none;
+  }
+
+  .portfolio-right{
+    height: auto;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  /* keep landscape images fitting well */
+  .portfolio-media{
+    aspect-ratio: 16 / 9;
+  }
+}
+
+
+
+/* ===== Smooth Gallery (Brand-friendly) ===== */
+.pd-gallery{
+  --brand:#d85625;
+  --black:#0b0b0b;
+  --muted: rgba(11,11,11,.68);
+  --line: rgba(11,11,11,.12);
+
+  font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--black);
+}
+
+.pd-gallery__inner{
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.pd-gallery__head{
+  margin-bottom: 16px;
+}
+
+.pd-gallery__kicker{
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .78rem;
+  color: rgba(11,11,11,.55);
+}
+
+.pd-gallery__title{
+  margin: 0;
+  font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+  letter-spacing: -0.02em;
+}
+
+/* Scroller: smooth horizontal, no overflow outside container */
+.pd-gallery__scroller{
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+
+  /* keep it clean */
+  outline: none;
+}
+
+/* Center first photo in view */
+.pd-gallery__track{
+  display: flex;
+  gap: 14px;
+  align-items: center;
+
+  /* this centers the first and last items nicely */
+  padding-inline: clamp(14px, 4vw, 52px);
+}
+
+/* Each image tile */
+.pd-gallery__item{
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+
+  /* big landscape cards that NEVER overflow */
+  width: min(820px, 92vw);
+}
+
+.pd-gallery__media{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: rgba(11,11,11,.06);
+  overflow: hidden;     /* prevents overflow */
+}
+
+/* No border radius (as you like the clean edges) */
+.pd-gallery__media img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transform: scale(1.01);
+  transition: transform .35s ease;
+}
+
+.pd-gallery__item:hover .pd-gallery__media img{
+  transform: scale(1.06);
+}
+
+/* Optional tiny caption under images (if you want) */
+.pd-gallery__caption{
+  margin-top: 10px;
+  font-size: .95rem;
+  color: var(--muted);
+}
+
+/* Hint */
+.pd-gallery__hint{
+  margin: 10px 0 0;
+  font-size: .9rem;
+  color: rgba(11,11,11,.55);
+}
+
+/* Scrollbar nice */
+.pd-gallery__scroller::-webkit-scrollbar{ height: 8px; }
+.pd-gallery__scroller::-webkit-scrollbar-thumb{ background: rgba(11,11,11,.18); border-radius: 999px; }
+.pd-gallery__scroller::-webkit-scrollbar-track{ background: transparent; }
+
+/* Mobile: keep landscape, reduce spacing slightly */
+@media (max-width: 576px){
+  .pd-gallery__track{ gap: 10px; }
+  .pd-gallery__item{ width: 92vw; }
+}
+
+
+
+/* =========================
+   Story ALT (Text left, collage right)
+   ========================= */
+
+.pd-story--alt{
+  padding: clamp(36px, 5vw, 84px) 0;
+  background: #fff;
+}
+
+/* Swap layout: left copy, right collage */
+.pd-story__inner--alt{
+  width: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 50vw; /* copy then collage */
+  gap: clamp(18px, 3vw, 52px);
+  align-items: center;
+}
+
+/* Make copy feel strong on left */
+.pd-copy--alt{
+  padding: 0 16px;
+}
+
+@media (min-width: 1200px){
+  .pd-copy--alt{
+    padding-left: 24px;
+    max-width: 600px;
+  }
+}
+
+/* Collage on right */
+.pd-collage--alt{
+  width: 80%;
+}
+
+.pd-collage__img--overlay-alt{
+  position: absolute;
+
+  right: clamp(-180px, -6vw, -120px);
+  top: clamp(140px, 5vw, 100px);
+
+  width: clamp(180px, 18vw, 300px);
+  height: clamp(220px, 22vw, 360px);
+
+  object-fit: cover;
+  object-position: center;
+
+  background: none !important;   /* remove grey background */
+  box-shadow: none !important;   /* remove shadow */
+  border: none;                  /* remove subtle border if any */
+}
+/* Optional: slight separator feel without adding borders */
+.pd-story--alt .pd-copy__kicker{
+  color: rgba(0,0,0,0.60);
+}
+
+/* =========================
+   Mobile responsiveness
+   ========================= */
+@media (max-width: 992px){
+
+  .pd-story__inner--alt{
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .pd-copy--alt{
+    order: 1;
+    padding: 0 16px;
+  }
+
+  .pd-collage--alt{
+    order: 2;
+    padding: 0 12px;
+  }
+
+  /* Smaller image centered-right on mobile */
+  .pd-collage__img--overlay-alt{
+    left: auto;               /* remove left positioning */
+    right: 10%;               /* move toward center */
+    transform: translateX(50%); /* true centering */
+
+    top: 100px;
+
+    width: clamp(160px, 50vw, 240px);
+    height: clamp(180px, 55vw, 280px);
+  }
+}
+
+/* Avoid broken layout if empty */
+#pdMoreImg1[src=""],
+#pdMoreImg2[src=""]{
+  background: rgba(0,0,0,0.04);
 }

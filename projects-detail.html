@@ -302,56 +302,73 @@
 </section>
 
 
-<!-- Slideshow: Remaining project photos -->
-<section class="pd-slider" aria-label="Project gallery slideshow">
-  <div class="pd-slider__inner">
-    <div class="pd-slider__head">
-      <p class="pd-slider__kicker">Gallery</p>
-      <h2 class="pd-slider__title">More project views</h2>
+<!-- Smooth Scroll Gallery: Remaining project photos -->
+<section class="pd-gallery" aria-label="Project gallery">
+  <div class="pd-gallery__inner">
+    <div class="pd-gallery__head">
+      <p class="pd-gallery__kicker">Gallery</p>
+      <h2 class="pd-gallery__title">More project views</h2>
     </div>
 
-    <div class="pd-carousel" data-carousel>
-      <div class="pd-carousel__viewport">
-        <div class="pd-carousel__track" id="pdCarouselTrack">
-          <!-- slides injected by JS -->
-        </div>
-      </div>
-
-      <!-- Controls OUTSIDE the image -->
-      <div class="pd-carousel__controls" aria-label="Slideshow controls">
-        <button
-          class="pd-carousel__btn pd-carousel__btn--prev"
-          type="button"
-          id="pdPrevBtn"
-          aria-label="Previous image"
-        >
-          <span aria-hidden="true">‹</span>
-        </button>
-
-        <div class="pd-carousel__dots" id="pdCarouselDots" aria-label="Slideshow pagination">
-          <!-- dots injected by JS -->
-        </div>
-
-        <button
-          class="pd-carousel__btn pd-carousel__btn--next"
-          type="button"
-          id="pdNextBtn"
-          aria-label="Next image"
-        >
-          <span aria-hidden="true">›</span>
-        </button>
+    <!-- horizontal scroll row -->
+    <div class="pd-gallery__scroller" id="pdGalleryScroller" tabindex="0" aria-label="Scroll to view all photos">
+      <div class="pd-gallery__track" id="pdGalleryTrack">
+        <!-- items injected by JS -->
       </div>
     </div>
+
+    <p class="pd-gallery__hint">Scroll horizontally to view all photos.</p>
   </div>
 </section>
 
-<!-- Prev / Next Projects -->
+
+<!-- Story ALT: Extra Description + Right stacked images -->
+<section class="pd-story pd-story--alt" aria-label="More project details">
+  <div class="pd-story__inner pd-story__inner--alt">
+
+    <!-- Left: copy -->
+    <div class="pd-copy pd-copy--alt">
+      <p class="pd-copy__kicker">More Details</p>
+      <h2 class="pd-copy__title" id="pdMoreTitle">Crafted with purpose, finished with precision.</h2>
+
+      <p class="pd-copy__desc" id="pdMoreDescription">
+        Loading more details...
+      </p>
+    </div>
+
+    <!-- Right: stacked images -->
+    <div class="pd-collage pd-collage--alt" aria-label="Additional project images collage">
+      <div class="pd-collage__frame pd-collage__frame--alt">
+        <img
+          id="pdMoreImg1"
+          class="pd-collage__img pd-collage__img--base pd-collage__img--base-alt"
+          src=""
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+
+        <img
+          id="pdMoreImg2"
+          class="pd-collage__img pd-collage__img--overlay pd-collage__img--overlay-alt"
+          src=""
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- Prev / Next Projects (keep your existing section as is) -->
 <section class="pd-nav" aria-label="Previous and next projects">
   <div class="pd-nav__wrap" id="pdPrevNext">
     <!-- injected by JS -->
   </div>
 </section>
-
 
 
 </main>
@@ -492,11 +509,8 @@
         <script src="js/element-in-view.js"></script>
          <script src="js/vanilla-tilt.js"></script>
         <script src="js/main.js"></script>
-
-        <script>
-            
+<script>
 // js/projects-detail.js
-
 (function () {
   const els = {
     location: document.getElementById("pdLocation"),
@@ -505,16 +519,24 @@
     interior: document.getElementById("pdInterior"),
     operator: document.getElementById("pdOperator"),
     mainImg: document.getElementById("pdMainImage"),
+
+    // Top story (existing)
     stack1: document.getElementById("pdStackImg1"),
-stack2: document.getElementById("pdStackImg2"),
-desc: document.getElementById("pdDescription"),
-track: document.getElementById("pdCarouselTrack"),
-dots: document.getElementById("pdCarouselDots"),
-prev: document.getElementById("pdPrevBtn"),
-next: document.getElementById("pdNextBtn"),
-prevNextWrap: document.getElementById("pdPrevNext"),
+    stack2: document.getElementById("pdStackImg2"),
+    desc: document.getElementById("pdDescription"),
 
+    // ALT story section (text left, collage right)
+    moreTitle: document.getElementById("pdMoreTitle"),
+    moreDesc: document.getElementById("pdMoreDescription"),
+    moreImg1: document.getElementById("pdMoreImg1"),
+    moreImg2: document.getElementById("pdMoreImg2"),
 
+    // Smooth gallery
+    galleryScroller: document.getElementById("pdGalleryScroller"),
+    galleryTrack: document.getElementById("pdGalleryTrack"),
+
+    // Prev/Next projects
+    prevNextWrap: document.getElementById("pdPrevNext"),
   };
 
   function getProjectIdFromURL() {
@@ -528,254 +550,231 @@ prevNextWrap: document.getElementById("pdPrevNext"),
     return v.length ? v : fallback;
   }
 
+  function escapeHtml(str) {
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
   async function loadProjects() {
-    // IMPORTANT: match this path to where you saved your JSON
-    // If your JSON is in data/projects.json, keep as is.
     const res = await fetch("./data/projects.json", { cache: "no-store" });
     if (!res.ok) throw new Error("Failed to load projects.json");
     return res.json();
   }
 
-  function buildPrevNext(projects, currentId) {
-  if (!els.prevNextWrap) return;
+  function setImg(imgEl, src, altText) {
+    if (!imgEl) return;
+    imgEl.src = src || "";
+    imgEl.alt = altText || "";
+  }
 
-  const idx = projects.findIndex(x => x.id === currentId);
-  const prev = idx > 0 ? projects[idx - 1] : null;
-  const next = idx >= 0 && idx < projects.length - 1 ? projects[idx + 1] : null;
+  function makeNavTile(project, dir) {
+    const img =
+      Array.isArray(project.images) && project.images.filter(Boolean)[0]
+        ? project.images.filter(Boolean)[0]
+        : "";
 
-  // Build markup
-  const items = [];
+    const label = dir === "prev" ? "Previous Project" : "Next Project";
 
-  if (prev) items.push(makeNavTile(prev, "prev"));
-  if (next) items.push(makeNavTile(next, "next"));
-
-  // If only one exists, make it full width
-  const onlyOne = items.length === 1;
-
-  els.prevNextWrap.innerHTML = items
-    .map(html => onlyOne ? html.replace('pd-nav__item"', 'pd-nav__item is-full"') : html)
-    .join("");
-}
-
-function makeNavTile(project, dir) {
-  const img = Array.isArray(project.images) && project.images.filter(Boolean)[0] ? project.images.filter(Boolean)[0] : "";
-  const label = dir === "prev" ? "Previous Project" : "Next Project";
-
-  return `
-    <a class="pd-nav__item" data-dir="${dir}" href="projects-detail.html?id=${encodeURIComponent(project.id)}" aria-label="${label}: ${escapeHtml(project.name || "")}">
-      <div class="pd-nav__bg" style="background-image:url('${img}')"></div>
-      <div class="pd-nav__overlay"></div>
-      <div class="pd-nav__content">
-        <div>
-          <p class="pd-nav__kicker">${label}</p>
-          <h3 class="pd-nav__title">${escapeHtml(project.name || "Untitled Project")}</h3>
-          <div class="pd-nav__arrow">View project</div>
+    return `
+      <a class="pd-nav__item" data-dir="${dir}"
+         href="projects-detail.html?id=${encodeURIComponent(project.id)}"
+         aria-label="${label}: ${escapeHtml(project.name || "")}">
+        <div class="pd-nav__bg" style="background-image:url('${img}')"></div>
+        <div class="pd-nav__overlay"></div>
+        <div class="pd-nav__content">
+          <div>
+            <p class="pd-nav__kicker">${label}</p>
+            <h3 class="pd-nav__title">${escapeHtml(project.name || "Untitled Project")}</h3>
+            <div class="pd-nav__arrow">View project</div>
+          </div>
         </div>
-      </div>
-    </a>
-  `;
-}
+      </a>
+    `;
+  }
 
-// simple safe escape for titles
-function escapeHtml(str) {
-  return String(str)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
+  function buildPrevNext(projects, currentId) {
+    if (!els.prevNextWrap) return;
 
+    const idx = projects.findIndex((x) => x.id === currentId);
+    const prev = idx > 0 ? projects[idx - 1] : null;
+    const next = idx >= 0 && idx < projects.length - 1 ? projects[idx + 1] : null;
+
+    const items = [];
+    if (prev) items.push(makeNavTile(prev, "prev"));
+    if (next) items.push(makeNavTile(next, "next"));
+
+    const onlyOne = items.length === 1;
+
+    els.prevNextWrap.innerHTML = items
+      .map((html) => (onlyOne ? html.replace('pd-nav__item"', 'pd-nav__item is-full"') : html))
+      .join("");
+  }
 
   function renderNotFound(id) {
-    els.location.textContent = "Project not found";
-    els.title.textContent = `No project matches ID: ${id || "missing"}`;
-    els.architect.textContent = "—";
-    els.interior.textContent = "—";
-    els.operator.textContent = "—";
-    els.mainImg.alt = "Project not found";
-    els.mainImg.src = "";
+    if (els.location) els.location.textContent = "Project not found";
+    if (els.title) els.title.textContent = `No project matches ID: ${id || "missing"}`;
+    if (els.architect) els.architect.textContent = "—";
+    if (els.interior) els.interior.textContent = "—";
+    if (els.operator) els.operator.textContent = "—";
+    if (els.mainImg) {
+      els.mainImg.alt = "Project not found";
+      els.mainImg.src = "";
+    }
+
+    const moreSection = document.querySelector(".pd-story--alt");
+    if (moreSection) moreSection.style.display = "none";
+    const gallerySection = document.querySelector(".pd-gallery");
+    if (gallerySection) gallerySection.style.display = "none";
   }
 
-function renderProject(p, projects) {
-  const locationText = `${safeText(p.location)}${p.year ? " — " + p.year : ""}`;
+  // Smooth scroller gallery (all images shown)
+  function buildGalleryScroller(images, projectName) {
+    const sliderSection = document.querySelector(".pd-gallery");
+    if (!els.galleryTrack || !els.galleryScroller) return;
 
-  // Top hero text
-  els.location.textContent = locationText;
-  els.title.textContent = safeText(p.name, "Untitled Project");
-  els.architect.textContent = safeText(p.roles?.architect);
-  els.interior.textContent = safeText(p.roles?.interior_designer);
-  els.operator.textContent = safeText(p.roles?.operator);
+    els.galleryTrack.innerHTML = "";
 
-  // Images array (clean + safe)
-  const imgs = Array.isArray(p.images) ? p.images.filter(Boolean) : [];
+    if (!images.length) {
+      if (sliderSection) sliderSection.style.display = "none";
+      return;
+    } else {
+      if (sliderSection) sliderSection.style.display = "";
+    }
 
-  // Main image (hero) = images[0]
-  const hero = imgs[0] || "";
-  els.mainImg.src = hero;
-  els.mainImg.alt = safeText(p.name, "Project image");
+    images.forEach((src, i) => {
+      const item = document.createElement("div");
+      item.className = "pd-gallery__item";
 
-  // Collage images (stack) = images[1] and images[2]
-  const img1 = imgs[1] || hero;
-  const img2 = imgs[2] || hero;
+      const media = document.createElement("div");
+      media.className = "pd-gallery__media";
 
-  els.stack1.src = img1 || "";
-  els.stack1.alt = `${safeText(p.name, "Project")} — view 1`;
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = `${safeText(projectName, "Project")} — gallery ${i + 1}`;
+      img.loading = i === 0 ? "eager" : "lazy";
+      img.decoding = "async";
 
-  els.stack2.src = img2 || "";
-  els.stack2.alt = `${safeText(p.name, "Project")} — view 2`;
-
-  // Description
-  els.desc.textContent = safeText(p.description, "Project description coming soon.");
-
-  // Slideshow images (all remaining after hero + collage stack)
-  const remaining = imgs.slice(3);
-
-  carouselState.images = remaining;
-  carouselState.index = 0;
-
-  if (remaining.length) {
-    buildCarousel(remaining, p.name);
-  } else {
-    // If there are no remaining images, hide the slider section neatly
-    const sliderSection = document.querySelector(".pd-slider");
-    if (sliderSection) sliderSection.style.display = "none";
-  }
-    // Prev / Next navigation (based on JSON order)
-  if (Array.isArray(projects) && projects.length) {
-    buildPrevNext(projects, p.id);
-  }
-
-}
-
-
-let carouselState = {
-  images: [],
-  index: 0,
-  timer: null,
-  intervalMs: 3000,
-  isHovering: false,
-};
-
-function buildCarousel(images, projectName) {
-  if (!els.track || !els.dots || !els.prev || !els.next) return;
-
-  // Clear existing
-  els.track.innerHTML = "";
-  els.dots.innerHTML = "";
-
-  // Build slides
-  images.forEach((src, i) => {
-    const slide = document.createElement("div");
-    slide.className = "pd-carousel__slide";
-
-    const img = document.createElement("img");
-    img.className = "pd-carousel__img";
-    img.src = src;
-    img.alt = `${safeText(projectName, "Project")} — gallery ${i + 1}`;
-    img.loading = i === 0 ? "eager" : "lazy";
-    img.decoding = "async";
-
-    slide.appendChild(img);
-    els.track.appendChild(slide);
-
-    // Dot
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.className = "pd-dot";
-    dot.setAttribute("aria-label", `Go to image ${i + 1}`);
-    dot.addEventListener("click", () => {
-      goToSlide(i);
-      restartAuto();
+      media.appendChild(img);
+      item.appendChild(media);
+      els.galleryTrack.appendChild(item);
     });
-    els.dots.appendChild(dot);
-  });
 
-  // Buttons
-  els.prev.addEventListener("click", () => {
-    prevSlide();
-    restartAuto();
-  });
-
-  els.next.addEventListener("click", () => {
-    nextSlide();
-    restartAuto();
-  });
-
-  // Pause on hover (premium feel)
-  const carousel = document.querySelector("[data-carousel]");
-  if (carousel) {
-    carousel.addEventListener("mouseenter", () => {
-      carouselState.isHovering = true;
-      stopAuto();
+    // Center first image
+    requestAnimationFrame(() => {
+      const first = els.galleryTrack.querySelector(".pd-gallery__item");
+      if (first) {
+        try {
+          first.scrollIntoView({ behavior: "auto", block: "nearest", inline: "center" });
+        } catch {
+          first.scrollIntoView();
+        }
+      }
     });
-    carousel.addEventListener("mouseleave", () => {
-      carouselState.isHovering = false;
-      startAuto();
-    });
+
+    // Wheel-to-horizontal UX (attach once)
+    if (!els.galleryScroller.dataset.wheelBound) {
+      els.galleryScroller.addEventListener(
+        "wheel",
+        (e) => {
+          if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+            e.preventDefault();
+            els.galleryScroller.scrollLeft += e.deltaY;
+          }
+        },
+        { passive: false }
+      );
+      els.galleryScroller.dataset.wheelBound = "1";
+    }
   }
 
-  // Touch: restart auto after swipe-like interactions (optional future enhancement)
-  updateCarouselUI();
-  startAuto();
-}
+  // ALT story section uses LAST TWO images in JSON, and gallery must NOT include them
+  function renderMoreSection(p, imgs) {
+    const moreSection = document.querySelector(".pd-story--alt");
+    if (!moreSection) return;
 
-function updateCarouselUI() {
-  const idx = carouselState.index;
-  els.track.style.transform = `translateX(${-idx * 100}%)`;
+    const hero = imgs[0] || "";
+    const n = imgs.length;
 
-  const dots = Array.from(els.dots.children);
-  dots.forEach((d, i) => d.classList.toggle("is-active", i === idx));
+    // last two images
+    const last1 = n >= 2 ? imgs[n - 2] : (imgs[1] || hero);
+    const last2 = n >= 1 ? imgs[n - 1] : hero;
 
-  // Hide controls if only 1 image
-  const one = carouselState.images.length <= 1;
-  els.prev.style.display = one ? "none" : "";
-  els.next.style.display = one ? "none" : "";
-  els.dots.style.display = one ? "none" : "flex";
-}
+    // If basically no images, hide
+    if (!last1 && !last2) {
+      moreSection.style.display = "none";
+      return;
+    }
+    moreSection.style.display = "";
 
-function goToSlide(i) {
-  const n = carouselState.images.length;
-  if (!n) return;
-  carouselState.index = (i + n) % n;
-  updateCarouselUI();
-}
+    const t =
+      (typeof p.more_title === "string" && p.more_title.trim())
+        ? p.more_title.trim()
+        : "Crafted with purpose, finished with precision.";
 
-function nextSlide() {
-  goToSlide(carouselState.index + 1);
-}
+    if (els.moreTitle) els.moreTitle.textContent = t;
 
-function prevSlide() {
-  goToSlide(carouselState.index - 1);
-}
+    const extraDesc =
+      (typeof p.more_description === "string" && p.more_description.trim())
+        ? p.more_description.trim()
+        : safeText(p.description, "More details coming soon.");
 
-function startAuto() {
-  stopAuto();
-  if (carouselState.images.length <= 1) return;
+    if (els.moreDesc) els.moreDesc.textContent = extraDesc;
 
-  // Respect reduced motion
-  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return;
+    setImg(els.moreImg1, last1, `${safeText(p.name, "Project")} — additional view 1`);
+    setImg(els.moreImg2, last2, `${safeText(p.name, "Project")} — additional view 2`);
   }
 
-  carouselState.timer = window.setInterval(() => {
-    if (!carouselState.isHovering) nextSlide();
-  }, carouselState.intervalMs);
-}
+  function renderProject(p, projects) {
+    const locationText = `${safeText(p.location)}${p.year ? " — " + p.year : ""}`;
 
-function stopAuto() {
-  if (carouselState.timer) {
-    window.clearInterval(carouselState.timer);
-    carouselState.timer = null;
+    if (els.location) els.location.textContent = locationText;
+    if (els.title) els.title.textContent = safeText(p.name, "Untitled Project");
+    if (els.architect) els.architect.textContent = safeText(p.roles?.architect);
+    if (els.interior) els.interior.textContent = safeText(p.roles?.interior_designer);
+    if (els.operator) els.operator.textContent = safeText(p.roles?.operator);
+
+    const imgs = Array.isArray(p.images) ? p.images.filter(Boolean) : [];
+    const hero = imgs[0] || "";
+
+    // Main hero
+    if (els.mainImg) {
+      els.mainImg.src = hero;
+      els.mainImg.alt = safeText(p.name, "Project image");
+    }
+
+    // Top story collage: images[1] and images[2]
+    const img1 = imgs[1] || hero;
+    const img2 = imgs[2] || hero;
+
+    setImg(els.stack1, img1, `${safeText(p.name, "Project")} — view 1`);
+    setImg(els.stack2, img2, `${safeText(p.name, "Project")} — view 2`);
+
+    // Description
+    if (els.desc) {
+      els.desc.textContent = safeText(p.description, "Project description coming soon.");
+    }
+
+    // ALT story uses LAST TWO images
+    renderMoreSection(p, imgs);
+
+    // Gallery should NOT show the last 2 images (reserved for ALT section)
+    // Also keep gallery starting after hero + stack images
+    // So gallery range = imgs[3 .. (n-3)] inclusive
+    const n = imgs.length;
+    const galleryEndExclusive = Math.max(3, n - 2); // exclude last two
+    const galleryImgs = imgs.slice(3, galleryEndExclusive);
+
+    buildGalleryScroller(galleryImgs, p.name);
+
+    // Prev/Next
+    if (Array.isArray(projects) && projects.length) {
+      buildPrevNext(projects, p.id);
+    }
   }
-}
-
-function restartAuto() {
-  stopAuto();
-  startAuto();
-}
-
-
 
   async function init() {
     const id = getProjectIdFromURL();
@@ -785,8 +784,8 @@ function restartAuto() {
       const data = await loadProjects();
       const projects = data.projects || [];
       const project = projects.find((x) => x.id === id);
-      if (!project) return renderNotFound(id);
 
+      if (!project) return renderNotFound(id);
       renderProject(project, projects);
     } catch (err) {
       console.error(err);
@@ -796,7 +795,6 @@ function restartAuto() {
 
   init();
 })();
-
-        </script>
+</script>
     </body>
 </html>
