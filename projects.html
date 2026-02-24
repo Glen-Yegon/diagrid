@@ -268,10 +268,25 @@
 <!-- gallery-area -->          
 <section class="gallery-area fix pt-120 pb-90 ">
 
+    <!-- Gallery Filter -->
+<div class="gallery-filter-wrap">
+  <div class="container">
+    <div class="gallery-filter" role="tablist" aria-label="Project filter">
+      <button class="gf-btn is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button class="gf-btn" type="button" data-filter="architecture" aria-pressed="false">Architecture</button>
+      <button class="gf-btn" type="button" data-filter="interior" aria-pressed="false">Interior Design</button>
+      <button class="gf-btn" type="button" data-filter="remodel" aria-pressed="false">Remodel</button>
+      <button class="gf-btn" type="button" data-filter="construction" aria-pressed="false">Construction</button>
+      <button class="gf-btn" type="button" data-filter="office-works" aria-pressed="false">Office Works</button>
+    </div>
+  </div>
+</div>
+<!-- /Gallery Filter -->
+
     <div class="container">
         <div class="row g-1 g-sm-2 justify-content-center gallery-row">
 
-<div class="col-6 col-md-6 col-lg-4 gallery-col">
+<div class="col-6 col-md-6 col-lg-4 gallery-col" data-category="architecture">
   <a href="projects-detail.html?id=gracelle-drive">
     <figure class="gallery-image">
       <img src="projects/img169.jpg" alt="Gracelle Drive" class="img">
@@ -286,7 +301,7 @@
   </a>
 </div>
 
-<div class="col-6 col-md-6 col-lg-4 gallery-col">
+<div class="col-6 col-md-6 col-lg-4 gallery-col" data-category="architecture">
   <a href="projects-detail.html?id=gables">
     <figure class="gallery-image">
       <img src="projects/img177.jpg" alt="Gables" class="img">
@@ -301,7 +316,7 @@
   </a>
 </div>
 
-<div class="col-6 col-md-6 col-lg-4 gallery-col">
+<div class="col-6 col-md-6 col-lg-4 gallery-col" data-category="architecture">
   <a href="projects-detail.html?id=casa-colina">
     <figure class="gallery-image">
       <img src="projects/img203.jpg" alt="Casa Colina" class="img">
@@ -316,7 +331,7 @@
   </a>
 </div>
 
-<div class="col-6 col-md-6 col-lg-4 gallery-col">
+<div class="col-6 col-md-6 col-lg-4 gallery-col" data-category="">
   <a href="projects-detail.html?id=split-house">
     <figure class="gallery-image">
       <img src="projects/img229.jpg" alt="Split House" class="img">
@@ -331,7 +346,7 @@
   </a>
 </div>
 
-<div class="col-6 col-md-6 col-lg-4 gallery-col">
+<div class="col-6 col-md-6 col-lg-4 gallery-col" data-category="office-works">
   <a href="projects-detail.html?id=zepre-hq">
     <figure class="gallery-image">
       <img src="projects/img257.jpg" alt="Zepre HQ" class="img">
@@ -346,7 +361,7 @@
   </a>
 </div>
 
-<div class="col-6 col-md-6 col-lg-4 gallery-col">
+<div class="col-6 col-md-6 col-lg-4 gallery-col" data-category="interior">
   <a href="projects-detail.html?id=rimpa-interior-design-works">
     <figure class="gallery-image">
       <img src="projects/img286.jpg" alt="Rimpa Interior Design Works" class="img">
@@ -361,6 +376,50 @@
   </a>
 </div>
 
+<div class="col-6 col-md-6 col-lg-4 gallery-col" data-category="remodel">
+  <a href="projects-detail.html?id=kitengela-mansion">
+    <figure class="gallery-image">
+      <img src="images/kite.JPG" alt="Rimpa Interior Design Works" class="img">
+      <figcaption>
+        <div class="icon"><img src="img/gallery/g-btn.png" alt="icon"></div>
+        <div class="text">
+          <span>Nairobi County - 2023</span>
+          <h4>Kitengela Mansion Remodel Works</h4>
+        </div>
+      </figcaption>
+    </figure>
+  </a>
+</div>
+
+<div class="col-6 col-md-6 col-lg-4 gallery-col" data-category="construction">
+  <a href="projects-detail.html?id=mua-hills">
+    <figure class="gallery-image">
+      <img src="images/muaa.webp" alt="Rimpa Interior Design Works" class="img">
+      <figcaption>
+        <div class="icon"><img src="img/gallery/g-btn.png" alt="icon"></div>
+        <div class="text">
+          <span>Nairobi County - 2023</span>
+          <h4>Mua Hills</h4>
+        </div>
+      </figcaption>
+    </figure>
+  </a>
+</div>
+
+<div class="col-6 col-md-6 col-lg-4 gallery-col" data-category="interior">
+  <a href="projects-detail.html?id=ongata-rongai-interior">
+    <figure class="gallery-image">
+      <img src="images/ongata (1).JPG" alt="Rimpa Interior Design Works" class="img">
+      <figcaption>
+        <div class="icon"><img src="img/gallery/g-btn.png" alt="icon"></div>
+        <div class="text">
+          <span>Kajiado County - 2023</span>
+          <h4>Ongata Rongai Interior</h4>
+        </div>
+      </figcaption>
+    </figure>
+  </a>
+</div>
 
         </div>
     </div>
@@ -554,5 +613,43 @@
         <script src="js/element-in-view.js"></script>
          <script src="js/vanilla-tilt.js"></script>
         <script src="js/main.js"></script>
+
+<script>
+  (function () {
+    const filterBar = document.querySelector(".gallery-filter");
+    const buttons = document.querySelectorAll(".gallery-filter .gf-btn");
+    const items = document.querySelectorAll(".gallery-col");
+
+    if (!filterBar || !buttons.length || !items.length) return;
+
+    function applyFilter(filter) {
+      items.forEach((item) => {
+        const cat = (item.getAttribute("data-category") || "").toLowerCase();
+        const show = (filter === "all") || (cat === filter);
+
+        item.style.display = show ? "" : "none";
+      });
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = (btn.getAttribute("data-filter") || "all").toLowerCase();
+
+        buttons.forEach(b => {
+          b.classList.remove("is-active");
+          b.setAttribute("aria-pressed", "false");
+        });
+
+        btn.classList.add("is-active");
+        btn.setAttribute("aria-pressed", "true");
+
+        applyFilter(filter);
+      });
+    });
+
+    // Default
+    applyFilter("all");
+  })();
+</script>
     </body>
 </html>

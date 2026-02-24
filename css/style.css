@@ -6917,6 +6917,7 @@ position: relative;
 }
 .gallery-area .portfolio-active{
     margin: 0 -50px;
+
 }
 .portfolio-active .slick-dots li {
   display: inline-block;
@@ -14011,7 +14012,7 @@ color: #ffff;
   width: 68%;
   height: 62%;
   right: 0%;
-  bottom: 0%;
+  bottom: -10%;
   z-index: 3;
 }
 
@@ -14061,4 +14062,59 @@ color: #ffff;
 .bp-item.bp-in{
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ===== Gallery Filter (Brand: Space Grotesk, black/white/#d85625) ===== */
+.gallery-filter-wrap {
+  padding: 10px 0 18px;
+}
+
+.gallery-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.gf-btn {
+  font-family: "Space Grotesk", sans-serif;
+  background: #fff;
+  color: #000;
+  border: 1px solid rgba(0,0,0,0.18);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease, color .15s ease;
+  white-space: nowrap;
+}
+
+.gf-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(0,0,0,0.35);
+}
+
+.gf-btn.is-active {
+  background: #d85625;
+  color: #fff;
+  border-color: #d85625;
+}
+
+@media (max-width: 576px) {
+  .gallery-filter {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .gf-btn {
+    flex: 0 0 auto;
+    font-size: 0.92rem;
+    padding: 10px 12px;
+  }
 }

@@ -7,7 +7,7 @@
       "year": 2023,
       "roles": {
         "architect": "Diagrid Studio",
-        "interior_designer": "Rimpa Interiors",
+        "interior_designer": "Architecture",
         "operator": "Diagrid Group"
       },
       "description": "Gracelle Drive is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
@@ -27,7 +27,7 @@
       "year": 2023,
       "roles": {
         "architect": "Diagrid Studio",
-        "interior_designer": "Rimpa Interiors",
+        "interior_designer": "Architecture",
         "operator": "Diagrid Group"
       },
       "description": "Gables is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
@@ -47,7 +47,7 @@
       "year": 2024,
       "roles": {
         "architect": "Diagrid Studio",
-        "interior_designer": "Rimpa Interiors",
+        "interior_designer": "Architecture",
         "operator": "Diagrid Group"
       },
       "description": "Casa Colina is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
@@ -67,7 +67,7 @@
       "year": 2021,
       "roles": {
         "architect": "Diagrid Studio",
-        "interior_designer": "Rimpa Interiors",
+        "interior_designer": "",
         "operator": "Diagrid Group"
       },
       "description": "Split House is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
@@ -86,7 +86,7 @@
       "year": 2024,
       "roles": {
         "architect": "Diagrid Studio",
-        "interior_designer": "Rimpa Interiors",
+        "interior_designer": "Office Works",
         "operator": "Diagrid Group"
       },
       "description": "Zepre HQ is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
@@ -106,7 +106,7 @@
       "year": 2023,
       "roles": {
         "architect": "Diagrid Studio",
-        "interior_designer": "Rimpa Interiors",
+        "interior_designer": "Interior Design",
         "operator": "Diagrid Group"
       },
       "description": "Rimpa Interior Design Works is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
@@ -117,6 +117,69 @@
         "../images/img300.jpg",
         "../images/img227.jpg"
       ]
+    },
+        {
+      "id": "kitengela-mansion",
+      "name": "Kitengela Mansion Remodel",
+      "location": "Nairobi County, Kenya",
+      "year": 2023,
+      "roles": {
+        "architect": "Diagrid Studio",
+        "interior_designer": "Remodel",
+        "operator": "Diagrid Group"
+      },
+      "description": " Kitengela Mansion Remodel Project is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
+      "images": [
+        "../images/kite1.JPG",
+        "../images/kite.JPG",
+        "../images/kite2.JPG",
+        "../images/kite5.JPG",
+        "../images/kite4.JPG",
+                "../images/kite3.JPG"
+      ]
+    },
+            {
+      "id": "mua-hills",
+      "name": "Mua Hills",
+      "location": "Nairobi County, Kenya",
+      "year": 2023,
+      "roles": {
+        "architect": "Diagrid Studio",
+        "interior_designer": "Construction",
+        "operator": "Diagrid Group"
+      },
+      "description": "Mua Hills Project is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
+      "images": [
+        "../images/muaa.webp",
+        "../images/mua (2).JPG",
+        "../images/mua (3).JPG",
+        "../images/mua (1).JPG",
+                "../images/muaaaa (1).JPG",
+                "../images/muaaaa (2).JPG"
+      ]
+    },
+
+            {
+      "id": "ongata-rongai-interior",
+      "name": "Ongata Rongai Interiors",
+      "location": "Nairobi County, Kenya",
+      "year": 2023,
+      "roles": {
+        "architect": "Diagrid Studio",
+        "interior_designer": "Interior Design",
+        "operator": "Diagrid Group"
+      },
+      "description": "Ongata Rongai Interior Project is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
+      "images": [
+        "../images/ongata (1).JPG",
+        "../images/ongata (2).JPG",
+        "../images/ongata (3).JPG",
+        "../images/ongata (4).JPG",
+                "../images/ongata (5).JPG"
+      ]
     }
+
+    
+    
   ]
 }
