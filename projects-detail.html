@@ -632,6 +632,9 @@
   }
 
   // Smooth scroller gallery (all images shown)
+  // IMPORTANT FIXES:
+  // 1) Center first item by setting scrollLeft only (no page jump)
+  // 2) REMOVE wheel-to-horizontal conversion so vertical scroll continues the page
   function buildGalleryScroller(images, projectName) {
     const sliderSection = document.querySelector(".pd-gallery");
     if (!els.galleryTrack || !els.galleryScroller) return;
@@ -663,32 +666,23 @@
       els.galleryTrack.appendChild(item);
     });
 
-    // Center first image
+    // Center first item INSIDE the scroller without scrolling the page
     requestAnimationFrame(() => {
       const first = els.galleryTrack.querySelector(".pd-gallery__item");
-      if (first) {
-        try {
-          first.scrollIntoView({ behavior: "auto", block: "nearest", inline: "center" });
-        } catch {
-          first.scrollIntoView();
-        }
-      }
+      if (!first) return;
+
+      const scroller = els.galleryScroller;
+
+      const itemLeft = first.offsetLeft;
+      const itemWidth = first.offsetWidth;
+      const scrollerWidth = scroller.clientWidth;
+
+      const target = itemLeft - (scrollerWidth / 2) + (itemWidth / 2);
+      scroller.scrollLeft = Math.max(0, target);
     });
 
-    // Wheel-to-horizontal UX (attach once)
-    if (!els.galleryScroller.dataset.wheelBound) {
-      els.galleryScroller.addEventListener(
-        "wheel",
-        (e) => {
-          if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-            e.preventDefault();
-            els.galleryScroller.scrollLeft += e.deltaY;
-          }
-        },
-        { passive: false }
-      );
-      els.galleryScroller.dataset.wheelBound = "1";
-    }
+    // NOTE: intentionally removed the wheel-to-horizontal listener
+    // so vertical wheel scroll continues the page, and horizontal gestures scroll the gallery naturally.
   }
 
   // ALT story section uses LAST TWO images in JSON, and gallery must NOT include them
@@ -699,11 +693,9 @@
     const hero = imgs[0] || "";
     const n = imgs.length;
 
-    // last two images
     const last1 = n >= 2 ? imgs[n - 2] : (imgs[1] || hero);
     const last2 = n >= 1 ? imgs[n - 1] : hero;
 
-    // If basically no images, hide
     if (!last1 && !last2) {
       moreSection.style.display = "none";
       return;
@@ -740,7 +732,6 @@
     const imgs = Array.isArray(p.images) ? p.images.filter(Boolean) : [];
     const hero = imgs[0] || "";
 
-    // Main hero
     if (els.mainImg) {
       els.mainImg.src = hero;
       els.mainImg.alt = safeText(p.name, "Project image");
@@ -753,24 +744,19 @@
     setImg(els.stack1, img1, `${safeText(p.name, "Project")} — view 1`);
     setImg(els.stack2, img2, `${safeText(p.name, "Project")} — view 2`);
 
-    // Description
     if (els.desc) {
       els.desc.textContent = safeText(p.description, "Project description coming soon.");
     }
 
-    // ALT story uses LAST TWO images
     renderMoreSection(p, imgs);
 
-    // Gallery should NOT show the last 2 images (reserved for ALT section)
-    // Also keep gallery starting after hero + stack images
-    // So gallery range = imgs[3 .. (n-3)] inclusive
+    // Gallery excludes last two (reserved for ALT), and starts after hero+stack images
     const n = imgs.length;
-    const galleryEndExclusive = Math.max(3, n - 2); // exclude last two
+    const galleryEndExclusive = Math.max(3, n - 2);
     const galleryImgs = imgs.slice(3, galleryEndExclusive);
 
     buildGalleryScroller(galleryImgs, p.name);
 
-    // Prev/Next
     if (Array.isArray(projects) && projects.length) {
       buildPrevNext(projects, p.id);
     }

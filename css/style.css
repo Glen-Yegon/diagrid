@@ -14304,6 +14304,7 @@ right: clamp(-220px, -8vw, -140px);
 .pd-gallery__scroller{
   overflow-x: auto;
   overflow-y: hidden;
+
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
@@ -14312,10 +14313,17 @@ right: clamp(-220px, -8vw, -140px);
   border-bottom: 1px solid var(--line);
   padding: 18px 0;
 
-  /* keep it clean */
   outline: none;
-}
 
+  /* ✅ allow page to scroll vertically normally */
+  overscroll-behavior-y: auto;
+
+  /* ✅ stop horizontal scroll chaining to the page */
+  overscroll-behavior-x: contain;
+
+  /* ✅ make touch/trackpad behavior natural (vertical scroll goes to page, horizontal to gallery) */
+  touch-action: pan-x pan-y;
+}
 /* Center first photo in view */
 .pd-gallery__track{
   display: flex;
