@@ -68,34 +68,35 @@
     }
     </script>
 
-    <script>
+<script>
 // Hero rotate — Desktop background + Mobile paired images (per word)
+// Words + desktop bg + mobile pair change at the SAME time (smooth + even)
 document.addEventListener("DOMContentLoaded", () => {
   const slider = [
     {
       word: "Home Solutions",
-      bg: "images/hero1.webp",
+      bg: "images/homedesk.png",
       mobile: ["images/homess (1).png", "images/homess (2).png"],
     },
     {
       word: "Remodel Project",
-      bg: "images/hero4.png",
-      mobile: ["images/comm (1).png", "images/comm (2).png"], // replace with your real mobile pair
+      bg: "images/redesk.png",
+      mobile: ["images/comm (1).png", "images/comm (2).png"],
     },
     {
       word: "Office Solutions",
-      bg: "images/hero7.png",
-      mobile: ["images/officemobile (1).png", "images/officemobile (2).png"], // replace
+      bg: "images/officedesk.png",
+      mobile: ["images/officemobile (1).png", "images/officemobile (2).png"],
     },
     {
       word: "Commercial",
-      bg: "images/hero6.png",
-      mobile: ["images/comm (1).png", "images/comm (2).png"], // replace
+      bg: "images/comdesk.png",
+      mobile: ["images/comm (1).png", "images/comm (2).png"],
     },
     {
       word: "Interior Works",
-      bg: "images/hero3.png",
-      mobile: ["images/int (1).JPG", "images/int (2).png"], // replace
+      bg: "images/intdesk.png",
+      mobile: ["images/int (1).png", "images/int (2).png"],
     },
   ];
 
@@ -110,89 +111,82 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let index = 0;
 
-  function isMobileView() {
-    // match your CSS breakpoint for mobile images
-    return window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
-  }
+  // Timing
+  const INTERVAL_MS = 2800;
+  const FADE_MS = 380; // fade-out duration; swap happens exactly at the end
 
-  function setDesktop(i) {
-    if (!rotatingWord || !heroBg) return;
-    rotatingWord.textContent = slider[i].word;
-    heroBg.style.backgroundImage = `url("${slider[i].bg}")`;
-  }
-
-  function setMobilePair(i) {
+  function setMobilePairNow(i) {
     if (!mobileImg1 || !mobileImg2) return;
-
     const pair = slider[i]?.mobile;
     if (!pair || pair.length < 2) return;
-
-    mobileImg1.classList.add("is-fading");
-    mobileImg2.classList.add("is-fading");
-
-    setTimeout(() => {
-      mobileImg1.src = pair[0];
-      mobileImg2.src = pair[1];
-      mobileImg1.classList.remove("is-fading");
-      mobileImg2.classList.remove("is-fading");
-    }, 250);
+    mobileImg1.src = pair[0];
+    mobileImg2.src = pair[1];
   }
 
-  function applySlide(i) {
-    // Always update the word (desktop + mobile share the same word)
+  function applySlideNow(i) {
     if (rotatingWord) rotatingWord.textContent = slider[i].word;
-
-    // Desktop background
     if (heroBg) heroBg.style.backgroundImage = `url("${slider[i].bg}")`;
-
-    // Mobile pair (only matters on mobile, but safe to call always)
-    setMobilePair(i);
+    setMobilePairNow(i);
   }
 
   // init
-  applySlide(index);
+  applySlideNow(index);
 
   setInterval(() => {
-    // word fade
+    // Start fade-out together
     if (rotatingWord) rotatingWord.classList.add("fade-out");
+    if (heroBg) heroBg.classList.add("is-fading");
 
-    // desktop bg fade
-    if (heroBg) heroBg.style.opacity = "0";
-
-    // mobile fade
     if (mobileImg1 && mobileImg2) {
       mobileImg1.classList.add("is-fading");
       mobileImg2.classList.add("is-fading");
     }
 
+    // Swap exactly when fade-out completes (everything changes together)
     setTimeout(() => {
       index = (index + 1) % slider.length;
 
-      applySlide(index);
+      applySlideNow(index);
 
-      // remove/add animations
+      // Fade back in together
       if (rotatingWord) {
         rotatingWord.classList.remove("fade-out");
         rotatingWord.classList.add("fade-in");
-        setTimeout(() => rotatingWord.classList.remove("fade-in"), 500);
+        setTimeout(() => rotatingWord.classList.remove("fade-in"), FADE_MS);
       }
 
-      if (heroBg) heroBg.style.opacity = "1";
-    }, 400);
-  }, 3000);
+      if (heroBg) heroBg.classList.remove("is-fading");
+
+      if (mobileImg1 && mobileImg2) {
+        mobileImg1.classList.remove("is-fading");
+        mobileImg2.classList.remove("is-fading");
+      }
+    }, FADE_MS);
+  }, INTERVAL_MS);
 });
 </script>
 
 <style>
-/* Mobile pair fade */
+/* Ensure hero bg fades smoothly too */
+#hero-bg{
+  transition: opacity .38s ease;
+}
+#hero-bg.is-fading{
+  opacity: 0;
+}
+
+/* Mobile images fade same timing as text/bg */
 .hero-mobile-images img{
-  transition: opacity .25s ease, transform .25s ease;
+  transition: opacity .38s ease, transform .38s ease, filter .38s ease;
+  will-change: opacity, transform, filter;
 }
 .hero-mobile-images img.is-fading{
   opacity: 0;
-  transform: scale(0.98);
+  transform: translateY(3px) scale(0.992);
+  filter: blur(.6px);
 }
 </style>
+
 </head>
 
     <body>
