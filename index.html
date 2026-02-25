@@ -69,19 +69,17 @@
     </script>
 
 <script>
-// Hero rotate — Desktop bg + Mobile paired images (per word)
-// Fix: faster transition + NEVER fade to 0 (prevents white flash)
 document.addEventListener("DOMContentLoaded", () => {
   const slider = [
-    { word: "Home Solutions",  bg: "images/homedesk.png",   mobile: ["images/homess (1).png", "images/homess (2).png"] },
-    { word: "Remodel Project", bg: "images/redesk.png",     mobile: ["images/comm (1).png",   "images/comm (2).png"] },
-    { word: "Office Solutions",bg: "images/officedesk.png", mobile: ["images/officemobile (1).png","images/officemobile (2).png"] },
-    { word: "Commercial",      bg: "images/comdesk.png",    mobile: ["images/comm (1).png",   "images/comm (2).png"] },
-    { word: "Interior Works",  bg: "images/intdesk.png",    mobile: ["images/int (1).png",    "images/int (2).png"] },
+    { word: "Home Solutions",   bg: "images/homedesk.png",   mobile: ["images/homess (1).png", "images/homess (2).png"] },
+    { word: "Remodel Project",  bg: "images/redesk.png",     mobile: ["images/comm (1).png",   "images/comm (2).png"] },
+    { word: "Office Solutions", bg: "images/officedesk.png", mobile: ["images/officemobile (1).png","images/officemobile (2).png"] },
+    { word: "Commercial",       bg: "images/comdesk.png",    mobile: ["images/comm (1).png",   "images/comm (2).png"] },
+    { word: "Interior Works",   bg: "images/intdesk.png",    mobile: ["images/int (1).png",    "images/int (2).png"] },
   ];
 
   const rotatingWord = document.getElementById("rotating-word");
-  const heroBg = document.getElementById("hero-bg");
+  const heroBg = document.getElementById("hero-bg"); // this is your .hero-bg element
 
   const mobileWrap = document.querySelector(".hero-mobile-images");
   const mobileImgs = mobileWrap ? mobileWrap.querySelectorAll("img") : [];
@@ -90,10 +88,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let index = 0;
 
-  // Faster + less "blank time"
-  const INTERVAL_MS = 2600; // how long each slide stays
-  const FADE_MS = 240;      // how fast it fades
-  const SWAP_AT = 140;      // swap BEFORE it fades too much
+  // Slower + smoother (no flash)
+  const INTERVAL_MS = 3600; // how long each slide stays
+  const FADE_MS = 650;      // fade duration
+  const SWAP_AT = 320;      // swap while still visible (never reaches "blank")
+
+  function preload(src) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = src;
+    });
+  }
+
+  async function preloadSlide(i) {
+    const s = slider[i];
+    const tasks = [preload(s.bg)];
+    if (s.mobile?.length >= 2) {
+      tasks.push(preload(s.mobile[0]), preload(s.mobile[1]));
+    }
+    await Promise.all(tasks);
+  }
 
   function setMobilePairNow(i) {
     if (!mobileImg1 || !mobileImg2) return;
@@ -109,69 +125,90 @@ document.addEventListener("DOMContentLoaded", () => {
     setMobilePairNow(i);
   }
 
-  // init
-  applySlideNow(index);
+  async function init() {
+    // Preload first slide so we start clean
+    await preloadSlide(index);
+    applySlideNow(index);
 
-  setInterval(() => {
-    // Fade out (but not to 0 — controlled by CSS)
-    if (rotatingWord) rotatingWord.classList.add("fade-out");
-    if (heroBg) heroBg.classList.add("is-fading");
+    setInterval(async () => {
+      const next = (index + 1) % slider.length;
 
-    if (mobileImg1 && mobileImg2) {
-      mobileImg1.classList.add("is-fading");
-      mobileImg2.classList.add("is-fading");
-    }
+      // Preload next slide BEFORE fading (prevents flashes / image pop-in)
+      await preloadSlide(next);
 
-    // Swap EARLY (before we reach full fade)
-    setTimeout(() => {
-      index = (index + 1) % slider.length;
-      applySlideNow(index);
-
-      // Fade back in immediately
-      if (rotatingWord) {
-        rotatingWord.classList.remove("fade-out");
-        rotatingWord.classList.add("fade-in");
-        setTimeout(() => rotatingWord.classList.remove("fade-in"), FADE_MS);
-      }
-
-      if (heroBg) heroBg.classList.remove("is-fading");
+      // Start fade (but CSS never goes to 0)
+      if (rotatingWord) rotatingWord.classList.add("fade-out");
+      if (heroBg) heroBg.classList.add("is-fading");
 
       if (mobileImg1 && mobileImg2) {
-        mobileImg1.classList.remove("is-fading");
-        mobileImg2.classList.remove("is-fading");
+        mobileImg1.classList.add("is-fading");
+        mobileImg2.classList.add("is-fading");
       }
-    }, SWAP_AT);
-  }, INTERVAL_MS);
+
+      // Swap while still partially visible
+      setTimeout(() => {
+        index = next;
+        applySlideNow(index);
+
+        // Fade back in smoothly
+        if (rotatingWord) {
+          rotatingWord.classList.remove("fade-out");
+          rotatingWord.classList.add("fade-in");
+          setTimeout(() => rotatingWord.classList.remove("fade-in"), FADE_MS);
+        }
+
+        if (heroBg) heroBg.classList.remove("is-fading");
+
+        if (mobileImg1 && mobileImg2) {
+          mobileImg1.classList.remove("is-fading");
+          mobileImg2.classList.remove("is-fading");
+        }
+      }, SWAP_AT);
+    }, INTERVAL_MS);
+  }
+
+  init();
 });
 </script>
 
 <style>
-/* Desktop BG: fast fade, but never disappears fully (prevents flash) */
-#hero-bg{
-  transition: opacity .24s ease;
-}
-#hero-bg.is-fading{
-  opacity: 0.14; /* ✅ NOT 0 (this removes the white flash) */
+/* Smooth easing (feels premium) */
+:root{
+  --heroFadeMs: 650ms;
+  --heroEase: cubic-bezier(.22,.61,.36,1);
+  --minOpacity: 0.22; /* never 0 => no white flash */
 }
 
-/* Mobile images: fast fade, but never disappears fully */
+/* Desktop BG: smoother fade, never disappears */
+#hero-bg{
+  transition: opacity var(--heroFadeMs) var(--heroEase);
+  opacity: 1;
+}
+#hero-bg.is-fading{
+  opacity: var(--minOpacity);
+}
+
+/* Mobile images: smoother fade, never disappears */
 .hero-mobile-images img{
-  transition: opacity .24s ease, transform .24s ease, filter .24s ease;
+  transition:
+    opacity var(--heroFadeMs) var(--heroEase),
+    transform var(--heroFadeMs) var(--heroEase),
+    filter var(--heroFadeMs) var(--heroEase);
   will-change: opacity, transform, filter;
 }
 .hero-mobile-images img.is-fading{
-  opacity: 0.14; /* ✅ NOT 0 */
+  opacity: var(--minOpacity);
   transform: translateY(2px) scale(0.995);
-  filter: blur(.3px);
+  filter: blur(.35px);
 }
 
-/* Your word fade (make it match timing) */
+/* Word fade: same timing */
 #rotating-word{
-  transition: opacity .24s ease, transform .24s ease;
+  transition: opacity var(--heroFadeMs) var(--heroEase), transform var(--heroFadeMs) var(--heroEase);
   display: inline-block;
 }
 .fade-out{
-  opacity: 0.14; /* ✅ NOT 0 */
+  opacity: var(--minOpacity);
   transform: translateY(4px);
 }
 .fade-in{
