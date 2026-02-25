@@ -69,41 +69,20 @@
     </script>
 
 <script>
-// Hero rotate — Desktop background + Mobile paired images (per word)
-// Words + desktop bg + mobile pair change at the SAME time (smooth + even)
+// Hero rotate — Desktop bg + Mobile paired images (per word)
+// Fix: faster transition + NEVER fade to 0 (prevents white flash)
 document.addEventListener("DOMContentLoaded", () => {
   const slider = [
-    {
-      word: "Home Solutions",
-      bg: "images/homedesk.png",
-      mobile: ["images/homess (1).png", "images/homess (2).png"],
-    },
-    {
-      word: "Remodel Project",
-      bg: "images/redesk.png",
-      mobile: ["images/comm (1).png", "images/comm (2).png"],
-    },
-    {
-      word: "Office Solutions",
-      bg: "images/officedesk.png",
-      mobile: ["images/officemobile (1).png", "images/officemobile (2).png"],
-    },
-    {
-      word: "Commercial",
-      bg: "images/comdesk.png",
-      mobile: ["images/comm (1).png", "images/comm (2).png"],
-    },
-    {
-      word: "Interior Works",
-      bg: "images/intdesk.png",
-      mobile: ["images/int (1).png", "images/int (2).png"],
-    },
+    { word: "Home Solutions",  bg: "images/homedesk.png",   mobile: ["images/homess (1).png", "images/homess (2).png"] },
+    { word: "Remodel Project", bg: "images/redesk.png",     mobile: ["images/comm (1).png",   "images/comm (2).png"] },
+    { word: "Office Solutions",bg: "images/officedesk.png", mobile: ["images/officemobile (1).png","images/officemobile (2).png"] },
+    { word: "Commercial",      bg: "images/comdesk.png",    mobile: ["images/comm (1).png",   "images/comm (2).png"] },
+    { word: "Interior Works",  bg: "images/intdesk.png",    mobile: ["images/int (1).png",    "images/int (2).png"] },
   ];
 
   const rotatingWord = document.getElementById("rotating-word");
   const heroBg = document.getElementById("hero-bg");
 
-  // Mobile images (pair)
   const mobileWrap = document.querySelector(".hero-mobile-images");
   const mobileImgs = mobileWrap ? mobileWrap.querySelectorAll("img") : [];
   const mobileImg1 = mobileImgs[0] || null;
@@ -111,9 +90,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let index = 0;
 
-  // Timing
-  const INTERVAL_MS = 2800;
-  const FADE_MS = 380; // fade-out duration; swap happens exactly at the end
+  // Faster + less "blank time"
+  const INTERVAL_MS = 2600; // how long each slide stays
+  const FADE_MS = 240;      // how fast it fades
+  const SWAP_AT = 140;      // swap BEFORE it fades too much
 
   function setMobilePairNow(i) {
     if (!mobileImg1 || !mobileImg2) return;
@@ -133,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
   applySlideNow(index);
 
   setInterval(() => {
-    // Start fade-out together
+    // Fade out (but not to 0 — controlled by CSS)
     if (rotatingWord) rotatingWord.classList.add("fade-out");
     if (heroBg) heroBg.classList.add("is-fading");
 
@@ -142,13 +122,12 @@ document.addEventListener("DOMContentLoaded", () => {
       mobileImg2.classList.add("is-fading");
     }
 
-    // Swap exactly when fade-out completes (everything changes together)
+    // Swap EARLY (before we reach full fade)
     setTimeout(() => {
       index = (index + 1) % slider.length;
-
       applySlideNow(index);
 
-      // Fade back in together
+      // Fade back in immediately
       if (rotatingWord) {
         rotatingWord.classList.remove("fade-out");
         rotatingWord.classList.add("fade-in");
@@ -161,29 +140,43 @@ document.addEventListener("DOMContentLoaded", () => {
         mobileImg1.classList.remove("is-fading");
         mobileImg2.classList.remove("is-fading");
       }
-    }, FADE_MS);
+    }, SWAP_AT);
   }, INTERVAL_MS);
 });
 </script>
 
 <style>
-/* Ensure hero bg fades smoothly too */
+/* Desktop BG: fast fade, but never disappears fully (prevents flash) */
 #hero-bg{
-  transition: opacity .38s ease;
+  transition: opacity .24s ease;
 }
 #hero-bg.is-fading{
-  opacity: 0;
+  opacity: 0.14; /* ✅ NOT 0 (this removes the white flash) */
 }
 
-/* Mobile images fade same timing as text/bg */
+/* Mobile images: fast fade, but never disappears fully */
 .hero-mobile-images img{
-  transition: opacity .38s ease, transform .38s ease, filter .38s ease;
+  transition: opacity .24s ease, transform .24s ease, filter .24s ease;
   will-change: opacity, transform, filter;
 }
 .hero-mobile-images img.is-fading{
-  opacity: 0;
-  transform: translateY(3px) scale(0.992);
-  filter: blur(.6px);
+  opacity: 0.14; /* ✅ NOT 0 */
+  transform: translateY(2px) scale(0.995);
+  filter: blur(.3px);
+}
+
+/* Your word fade (make it match timing) */
+#rotating-word{
+  transition: opacity .24s ease, transform .24s ease;
+  display: inline-block;
+}
+.fade-out{
+  opacity: 0.14; /* ✅ NOT 0 */
+  transform: translateY(4px);
+}
+.fade-in{
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
 
