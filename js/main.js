@@ -708,42 +708,6 @@ VanillaTilt.init(document.querySelectorAll(".brand-area li"),{
 })(jQuery);
 
 
-// New Scripts (Glen)
-document.addEventListener("DOMContentLoaded", () => {
-  const slider = [
-    { word: "Home Solutions", bg: "../images/hero1.webp" },
-    { word: "Remodel Project", bg: "../images/hero4.png" },
-    { word: "Office Solutions", bg: "../images/hero7.png" },
-    { word: "Commercial", bg: "../images/hero6.png" },
-    { word: "Interior Works", bg: "../images/hero3.png" },
-  ];
-
-  const rotatingWord = document.getElementById("rotating-word");
-  const heroBg = document.getElementById("hero-bg");
-
-  let index = 0;
-
-  rotatingWord.textContent = slider[index].word;
-  heroBg.style.backgroundImage = `url("${slider[index].bg}")`;
-
-  setInterval(() => {
-    rotatingWord.classList.add("fade-out");
-    heroBg.style.opacity = "0";
-
-    setTimeout(() => {
-      index = (index + 1) % slider.length;
-
-      rotatingWord.textContent = slider[index].word;
-      heroBg.style.backgroundImage = `url("${slider[index].bg}")`;
-
-      rotatingWord.classList.remove("fade-out");
-      rotatingWord.classList.add("fade-in");
-      heroBg.style.opacity = "1";
-
-      setTimeout(() => rotatingWord.classList.remove("fade-in"), 500);
-    }, 400);
-  }, 3000);
-});
 
 
 

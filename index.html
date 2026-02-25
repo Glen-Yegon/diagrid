@@ -67,6 +67,132 @@
       "description": "Diagrid delivers residential, commercial, and industrial construction projects across Kenya, ensuring quality, safety, and timely completion."
     }
     </script>
+
+    <script>
+// Hero rotate — Desktop background + Mobile paired images (per word)
+document.addEventListener("DOMContentLoaded", () => {
+  const slider = [
+    {
+      word: "Home Solutions",
+      bg: "images/hero1.webp",
+      mobile: ["images/homess (1).png", "images/homess (2).png"],
+    },
+    {
+      word: "Remodel Project",
+      bg: "images/hero4.png",
+      mobile: ["images/comm (1).png", "images/comm (2).png"], // replace with your real mobile pair
+    },
+    {
+      word: "Office Solutions",
+      bg: "images/hero7.png",
+      mobile: ["images/officemobile (1).png", "images/officemobile (2).png"], // replace
+    },
+    {
+      word: "Commercial",
+      bg: "images/hero6.png",
+      mobile: ["images/comm (1).png", "images/comm (2).png"], // replace
+    },
+    {
+      word: "Interior Works",
+      bg: "images/hero3.png",
+      mobile: ["images/int (1).JPG", "images/int (2).png"], // replace
+    },
+  ];
+
+  const rotatingWord = document.getElementById("rotating-word");
+  const heroBg = document.getElementById("hero-bg");
+
+  // Mobile images (pair)
+  const mobileWrap = document.querySelector(".hero-mobile-images");
+  const mobileImgs = mobileWrap ? mobileWrap.querySelectorAll("img") : [];
+  const mobileImg1 = mobileImgs[0] || null;
+  const mobileImg2 = mobileImgs[1] || null;
+
+  let index = 0;
+
+  function isMobileView() {
+    // match your CSS breakpoint for mobile images
+    return window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+  }
+
+  function setDesktop(i) {
+    if (!rotatingWord || !heroBg) return;
+    rotatingWord.textContent = slider[i].word;
+    heroBg.style.backgroundImage = `url("${slider[i].bg}")`;
+  }
+
+  function setMobilePair(i) {
+    if (!mobileImg1 || !mobileImg2) return;
+
+    const pair = slider[i]?.mobile;
+    if (!pair || pair.length < 2) return;
+
+    mobileImg1.classList.add("is-fading");
+    mobileImg2.classList.add("is-fading");
+
+    setTimeout(() => {
+      mobileImg1.src = pair[0];
+      mobileImg2.src = pair[1];
+      mobileImg1.classList.remove("is-fading");
+      mobileImg2.classList.remove("is-fading");
+    }, 250);
+  }
+
+  function applySlide(i) {
+    // Always update the word (desktop + mobile share the same word)
+    if (rotatingWord) rotatingWord.textContent = slider[i].word;
+
+    // Desktop background
+    if (heroBg) heroBg.style.backgroundImage = `url("${slider[i].bg}")`;
+
+    // Mobile pair (only matters on mobile, but safe to call always)
+    setMobilePair(i);
+  }
+
+  // init
+  applySlide(index);
+
+  setInterval(() => {
+    // word fade
+    if (rotatingWord) rotatingWord.classList.add("fade-out");
+
+    // desktop bg fade
+    if (heroBg) heroBg.style.opacity = "0";
+
+    // mobile fade
+    if (mobileImg1 && mobileImg2) {
+      mobileImg1.classList.add("is-fading");
+      mobileImg2.classList.add("is-fading");
+    }
+
+    setTimeout(() => {
+      index = (index + 1) % slider.length;
+
+      applySlide(index);
+
+      // remove/add animations
+      if (rotatingWord) {
+        rotatingWord.classList.remove("fade-out");
+        rotatingWord.classList.add("fade-in");
+        setTimeout(() => rotatingWord.classList.remove("fade-in"), 500);
+      }
+
+      if (heroBg) heroBg.style.opacity = "1";
+    }, 400);
+  }, 3000);
+});
+</script>
+
+<style>
+/* Mobile pair fade */
+.hero-mobile-images img{
+  transition: opacity .25s ease, transform .25s ease;
+}
+.hero-mobile-images img.is-fading{
+  opacity: 0;
+  transform: scale(0.98);
+}
+</style>
 </head>
 
     <body>
@@ -1379,5 +1505,7 @@ Skilled engineers, foremen, and artisans with expertise in modern construction m
         <script src="js/element-in-view.js"></script>
          <script src="js/vanilla-tilt.js"></script>
         <script src="js/main.js"></script>
+
+
     </body>
 </html>
