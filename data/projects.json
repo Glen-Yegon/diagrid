@@ -16,7 +16,7 @@
 "../projects/gracelle (2).png",
 "../projects/gracelle (3).png",
 "../projects/gracelle (4).png",
-"../projects/gracelle (5).png",
+"../projects/gdfix.png",
 "../projects/gracelle (6).png",
 "../projects/gracelle (7).png",
 "../projects/gracelle (8).png",
@@ -39,7 +39,7 @@
                 "../projects/gables (2).png",
                         "../projects/gables (3).png",
                                 "../projects/gables (4).png",
-                                        "../projects/gables (5).png",
+                                        "../projects/gfix.png",
                                                 "../projects/gables (6).png",
                                                         "../projects/gables (7).png",
                                                                 "../projects/gables (9).png",
@@ -63,10 +63,10 @@
         "../projects/cc (2).png",
 "../projects/cc (3).png",
 "../projects/cc (4).png",
-"../projects/cc (5).png",
+"../projects/58 (1).png",
 "../projects/cc (6).png",
 "../projects/cc (7).png",
-"../projects/cc (9).png",
+"../projects/58 (2).png",
 "../projects/cc (8).png",
 "../projects/cc (10).png"
       ]
@@ -78,19 +78,19 @@
       "year": 2021,
       "roles": {
         "architect": "Diagrid Studio",
-        "interior_designer": "",
+        "interior_designer": "Remodel",
         "operator": "Diagrid Group"
       },
       "description": "Split House is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
       "images": [
         "../images/img220.jpg",
-        "../projects/sh (1).png",
+        "../projects/shfirst.png",
         "../projects/sh (2).png",
         "../projects/sh (3).png",
         "../projects/sh (4).png",
         "../projects/sh (5).png",
         "../projects/sh (6).png",
-        "../projects/sh (7).png",
+        "../projects/shlast.png",
         "../projects/sh (8).png"
       ]
     },
@@ -110,12 +110,12 @@
         "../projects/zep (1).png",
         "../projects/zep (2).png",
         "../projects/zep (3).png",
-        "../projects/zep (4).png",
+        "../projects/zepre5.png",
         "../projects/zep (5).png",
         "../projects/zep (6).png",
-        "../projects/zep (7).png",
+        "../projects/zepre9.png",
         "../projects/zep (8).png",
-        "../projects/zep (9).png",
+        "../projects/zepre11.png",
         "../projects/zep (10).png"
       ]
     },
@@ -155,14 +155,14 @@
       },
       "description": "Mua Hills Project is a contemporary residential build designed around clean lines, warm materials, and practical family living. The project focused on maximizing natural light, improving airflow, and creating a calm indoor-outdoor experience through wide openings, a shaded terrace, and durable finishes suited to the local climate.",
       "images": [
-        "../images/muaa.webp",
+        "../projects/muah3.png",
         "../projects/mua (1).png",
         "../projects/mua (2).png",
         "../projects/mua (3).png",
-        "../projects/mua (4).png",
+        "../projects/muah1.png",
         "../projects/mua (5).png",
         "../projects/mua (6).png",
-                "../projects/mua (7).png",
+                "../images/muaa.webp",
                 "../projects/mua (8).png"
       ]
     },
@@ -183,8 +183,8 @@
         "../projects/kaps (2).png",
         "../projects/kaps (3).png",
         "../projects/kaps (4).png",
-        "../projects/kaps (5).png",
-        "../projects/kaps (6).png",
+        "../projects/kapser1.png",
+        "../projects/kapser2.png",
         "../projects/kaps (7).png",
         "../projects/kaps (8).png",
         "../projects/kaps (9).png"
