@@ -14488,3 +14488,39 @@ right: clamp(-220px, -8vw, -140px);
 #pdMoreImg2[src=""]{
   background: rgba(0,0,0,0.04);
 }
+
+/* Partner Logos */
+
+/* Partner Logos */
+
+/* Partner logos container */
+.roww ul {
+  display: flex;
+  flex-wrap: wrap;          /* allow wrapping to next row */
+  justify-content: center;  /* center logos */
+  gap: 30px;                /* space between logos */
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 50px;
+}
+
+/* Each logo item */
+.roww ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Logo images */
+.roww ul li img {
+  max-width: 120px;  /* control logo size */
+  height: auto;
+  opacity: 0.8;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Hover effect */
+.roww ul li img:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
