@@ -12534,7 +12534,6 @@ color: #ffff;
 
   .hero-overlay {
     display: block;
-    background: rgba(0,0,0,0.45); /* stronger for readability */
   }
 
   .hero-content {
@@ -13248,7 +13247,7 @@ color: #ffff;
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.45);
 }
 
 /* =========================
