@@ -67,31 +67,24 @@
       "description": "Diagrid delivers residential, commercial, and industrial construction projects across Kenya, ensuring quality, safety, and timely completion."
     }
     </script>
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const slider = [
-    { word: "Home Solutions",   bg: "images/homedesk.png",   mobile: ["images/homess (1).png", "images/homess (2).png"] },
-    { word: "Remodel Project",  bg: "images/redesk.png",     mobile: ["images/comm (1).png",   "images/comm (2).png"] },
-    { word: "Office Solutions", bg: "images/officedesk.png", mobile: ["images/officemobile (1).png","images/officemobile (2).png"] },
-    { word: "Commercial",       bg: "images/comdesk.png",    mobile: ["images/comm (1).png",   "images/comm (2).png"] },
-    { word: "Interior Works",   bg: "images/intdesk.png",    mobile: ["images/int (1).png",    "images/int (2).png"] },
+
+  const slides = [
+    "images/screen.png",
+    "images/screen1.png",
+    "images/screen2.png",
+    "images/screen3.png",
+    "images/screen4.png"
   ];
 
-  const rotatingWord = document.getElementById("rotating-word");
-  const heroBg = document.getElementById("hero-bg"); // this is your .hero-bg element
-
-  const mobileWrap = document.querySelector(".hero-mobile-images");
-  const mobileImgs = mobileWrap ? mobileWrap.querySelectorAll("img") : [];
-  const mobileImg1 = mobileImgs[0] || null;
-  const mobileImg2 = mobileImgs[1] || null;
+  const heroBg = document.getElementById("hero-bg");
 
   let index = 0;
 
-  // Slower + smoother (no flash)
-  const INTERVAL_MS = 3600; // how long each slide stays
-  const FADE_MS = 650;      // fade duration
-  const SWAP_AT = 320;      // swap while still visible (never reaches "blank")
+  const INTERVAL_MS = 4000;
+  const FADE_MS = 650;
+  const SWAP_AT = 300;
 
   function preload(src) {
     return new Promise((resolve) => {
@@ -102,68 +95,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  async function preloadSlide(i) {
-    const s = slider[i];
-    const tasks = [preload(s.bg)];
-    if (s.mobile?.length >= 2) {
-      tasks.push(preload(s.mobile[0]), preload(s.mobile[1]));
+  function applySlide(i) {
+    if (heroBg) {
+      heroBg.style.backgroundImage = `url("${slides[i]}")`;
     }
-    await Promise.all(tasks);
-  }
-
-  function setMobilePairNow(i) {
-    if (!mobileImg1 || !mobileImg2) return;
-    const pair = slider[i]?.mobile;
-    if (!pair || pair.length < 2) return;
-    mobileImg1.src = pair[0];
-    mobileImg2.src = pair[1];
-  }
-
-  function applySlideNow(i) {
-    if (rotatingWord) rotatingWord.textContent = slider[i].word;
-    if (heroBg) heroBg.style.backgroundImage = `url("${slider[i].bg}")`;
-    setMobilePairNow(i);
   }
 
   async function init() {
-    // Preload first slide so we start clean
-    await preloadSlide(index);
-    applySlideNow(index);
+    // preload first
+    await preload(slides[index]);
+    applySlide(index);
 
     setInterval(async () => {
-      const next = (index + 1) % slider.length;
+      const next = (index + 1) % slides.length;
 
-      // Preload next slide BEFORE fading (prevents flashes / image pop-in)
-      await preloadSlide(next);
+      // preload next image
+      await preload(slides[next]);
 
-      // Start fade (but CSS never goes to 0)
-      if (rotatingWord) rotatingWord.classList.add("fade-out");
+      // start fade
       if (heroBg) heroBg.classList.add("is-fading");
 
-      if (mobileImg1 && mobileImg2) {
-        mobileImg1.classList.add("is-fading");
-        mobileImg2.classList.add("is-fading");
-      }
-
-      // Swap while still partially visible
       setTimeout(() => {
         index = next;
-        applySlideNow(index);
+        applySlide(index);
 
-        // Fade back in smoothly
-        if (rotatingWord) {
-          rotatingWord.classList.remove("fade-out");
-          rotatingWord.classList.add("fade-in");
-          setTimeout(() => rotatingWord.classList.remove("fade-in"), FADE_MS);
-        }
-
+        // fade back in
         if (heroBg) heroBg.classList.remove("is-fading");
 
-        if (mobileImg1 && mobileImg2) {
-          mobileImg1.classList.remove("is-fading");
-          mobileImg2.classList.remove("is-fading");
-        }
       }, SWAP_AT);
+
     }, INTERVAL_MS);
   }
 
@@ -239,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                           <img src="img/icon/tp-telephone.png" alt="logo">
                                          </div>
                                          <div class="text">                                            
-                                            <strong><a href="tel:+254717853459">+254 717 853 459</a></strong>                                              
+                                            <strong><a href="tel:+254717853459">+254 768 196 365</a></strong>                                              
                                          </div>
                                       </div>
                                    </li>
@@ -320,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                                 </div>
                                                <div class="text">
                                                     <span>Call Us Now!</span>
-                                                    <strong>+254 717 853 459</strong>
+                                                    <strong>+254 768 196 365</strong>
 
                                                 </div>
                                             </div>   
@@ -373,7 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     <div id="cssmenu2" class="menu-one-page-menu-container">
                         <ul id="menu-one-page-menu-12" class="menu">
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#home"><span>+254 717 853 459</span></a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#home"><span>+254 768 196 365</span></a></li>
                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#howitwork"><span>info@example.com</span></a></li>
                         </ul>
                     </div>                
@@ -437,12 +397,6 @@ design-build projects for residential and commercial <br> clients</p>
         Contact Us <span class="arrow">➜</span>
       </a>
     </div>
-
-    <!-- Mobile Images (Only visible on mobile) -->
-<div class="hero-mobile-images">
-  <img src="img/Frame 56.png" alt="Project preview 1">
-  <img src="img/Frame 57.png" alt="Project preview 2">
-</div>
 
 
   </div>
@@ -1178,7 +1132,7 @@ Skilled engineers, foremen, and artisans with expertise in modern construction m
                                 </h2> 
                                 <p class="mt-25">Have a project in mind? We’re ready to listen. Get in touch with Diagrid and let’s bring your construction ideas to life—done right, from the start.</p>
                                 <div class="blog-call">
-                                    <span class="nm pr-15">+254 717 853 459</span> Or  <span class="nm pl-15">Chat Now.</span>
+                                    <span class="nm pr-15">+254 768 196 365</span> Or  <span class="nm pl-15">Chat Now.</span>
                                 </div>
                                <div class="contact-social">                                    
                                 <a href="https://www.tiktok.com/@diagrid.group?_r=1&_t=ZS-93ViQmytDxE"><i class="fab fa-tiktok"></i></a>
@@ -1336,7 +1290,7 @@ Skilled engineers, foremen, and artisans with expertise in modern construction m
                                          </div>
                                          <div class="text">   
                                              <span>CONSTRUCTION</span>
-                                            <strong><a href="tel:+254717853459">+254 717 853 459</a></strong>                                              
+                                            <strong><a href="tel:+254717853459">+254 768 196 365</a></strong>                                              
                                          </div>
                                       </div>
                                    </li>
