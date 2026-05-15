@@ -14369,9 +14369,11 @@ right: clamp(-220px, -8vw, -140px);
 }
 
 
-
 /* =========================
-   Story ALT (Text left, collage right)
+   Story ALT (FULL UPDATED)
+   - Text on LEFT
+   - Image on RIGHT
+   - Same exact style/spacing/feel
    ========================= */
 
 .pd-story--alt{
@@ -14379,85 +14381,170 @@ right: clamp(-220px, -8vw, -140px);
   background: #fff;
 }
 
-/* Swap layout: left copy, right collage */
+/* Full-width grid */
 .pd-story__inner--alt{
   width: 100%;
   margin: 0;
+
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 50vw; /* copy then collage */
-  gap: clamp(18px, 3vw, 52px);
+
+  /* wider text + image flush right */
+  grid-template-columns: minmax(520px, 1fr) 50vw;
+
+  gap: clamp(32px, 4vw, 72px);
+
   align-items: center;
+
+  padding-left: clamp(40px, 5vw, 110px);
 }
 
-/* Make copy feel strong on left */
+/* =========================
+   LEFT COPY
+   ========================= */
+
 .pd-copy--alt{
-  padding: 0 16px;
+  padding-left: clamp(60px, 6vw, 140px);  /* pushes text inward */
+  padding-right: 16px;
+  max-width: 620px; /* keeps text elegant */
+  margin-left: auto; /* anchors it to the right side */
 }
 
 @media (min-width: 1200px){
   .pd-copy--alt{
     padding-left: 24px;
-    max-width: 600px;
+    max-width: 560px;
   }
 }
 
-/* Collage on right */
-.pd-collage--alt{
-  width: 80%;
+.pd-story--alt .pd-copy__kicker{
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.60);
 }
 
-.pd-collage__img--overlay-alt{
-  position: absolute;
+.pd-story--alt .pd-copy__title{
+  margin: 0 0 14px;
+  font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-weight: 650;
+  color: #0b0b0b;
+}
 
-  right: clamp(-180px, -6vw, -120px);
-  top: clamp(140px, 5vw, 100px);
+.pd-story--alt .pd-copy__desc{
+  margin: 0;
+  font-size: clamp(1rem, 1.05vw, 1.08rem);
+  line-height: 1.8;
+  color: rgba(0,0,0,0.76);
+  max-width: 62ch;
+}
 
-  width: clamp(180px, 18vw, 300px);
-  height: clamp(220px, 22vw, 360px);
+/* =========================
+   RIGHT COLLAGE
+   ========================= */
+
+.pd-collage--alt{
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pd-collage__frame--alt{
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+/* Base image */
+.pd-collage__img--base-alt{
+  display: block;
+
+  width: 100%;
+
+  height: clamp(420px, 60vh, 720px);
 
   object-fit: cover;
   object-position: center;
 
-  background: none !important;   /* remove grey background */
-  box-shadow: none !important;   /* remove shadow */
-  border: none;                  /* remove subtle border if any */
+  border-radius: 0;
+
+  margin-right: 0;
 }
-/* Optional: slight separator feel without adding borders */
-.pd-story--alt .pd-copy__kicker{
-  color: rgba(0,0,0,0.60);
+
+/* Overlay image */
+.pd-collage__img--overlay-alt{
+  position: absolute;
+
+  right: clamp(-220px, -8vw, -140px);
+
+  bottom: clamp(100px, -3vw, -20px);
+
+  width: clamp(260px, 26vw, 420px);
+  height: clamp(300px, 32vw, 500px);
+
+  object-fit: cover;
+  object-position: center;
+
+  background: none !important;
+  box-shadow: none !important;
+  border: none;
 }
 
 /* =========================
-   Mobile responsiveness
+   MOBILE RESPONSIVENESS
    ========================= */
+
 @media (max-width: 992px){
+
+  .pd-story--alt{
+    padding: 28px 0;
+  }
 
   .pd-story__inner--alt{
     grid-template-columns: 1fr;
+
     gap: 18px;
+
+    padding-left: 0;
   }
 
   .pd-copy--alt{
     order: 1;
+
     padding: 0 16px;
+    max-width: 100%;
   }
 
   .pd-collage--alt{
     order: 2;
+
     padding: 0 12px;
   }
 
-  /* Smaller image centered-right on mobile */
-  .pd-collage__img--overlay-alt{
-    left: auto;               /* remove left positioning */
-    right: 10%;               /* move toward center */
-    transform: translateX(50%); /* true centering */
-
-    top: 100px;
-
-    width: clamp(160px, 50vw, 240px);
-    height: clamp(180px, 55vw, 280px);
+  .pd-collage__img--base-alt{
+    height: clamp(320px, 48vh, 520px);
   }
+
+  .pd-collage__img--overlay-alt{
+    right: -10px;
+    bottom: -24px;
+
+    width: clamp(170px, 55vw, 260px);
+    height: clamp(190px, 60vw, 300px);
+  }
+
+  .pd-story--alt .pd-copy__desc{
+    max-width: 100%;
+  }
+}
+
+/* Empty image fallback */
+.pd-collage__img--base-alt[src=""],
+.pd-collage__img--overlay-alt[src=""]{
+  background: rgba(0,0,0,0.04);
 }
 
 /* Avoid broken layout if empty */
